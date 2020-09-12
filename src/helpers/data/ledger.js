@@ -50,7 +50,7 @@ const createLedger = (newLedger) => axios.post(`${baseUrl}/ledger.json`, newLedg
 
 const updateLedger = (ledgerId, editedLedger) => axios.patch(`${baseUrl}/ledger/${ledgerId}.json`, editedLedger);
 
-const deleteLedger = (itemId) => axios.delete(`${baseUrl}/items/${itemId}.json`);
+const deleteLedger = (ledgerId) => axios.delete(`${baseUrl}/ledger/${ledgerId}.json`);
 
 export default {
   getLedgerByUid,
