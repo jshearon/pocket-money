@@ -13,10 +13,10 @@ const getJobsByUid = (uid) => new Promise((resolve, reject) => {
       const myJobs = [];
 
       if (allJobs) {
-        Object.keys(allJobs).forEach((JobsId) => {
-          const Jobs = allJobs[JobsId];
-          Jobs.id = JobsId;
-          myJobs.push(Jobs);
+        Object.keys(allJobs).forEach((jobsId) => {
+          const jobs = allJobs[jobsId];
+          jobs.id = jobsId;
+          myJobs.push(jobs);
         });
       }
 
@@ -32,9 +32,9 @@ const getAllJobs = () => new Promise((resolve, reject) => {
       const myJobs = [];
 
       if (allJobs) {
-        Object.keys(allJobs).forEach((JobId) => {
-          const singleJob = allJobs[JobId];
-          singleJob.id = JobId;
+        Object.keys(allJobs).forEach((jobId) => {
+          const singleJob = allJobs[jobId];
+          singleJob.id = jobId;
           myJobs.push(singleJob);
         });
       }
@@ -44,13 +44,13 @@ const getAllJobs = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getJob = (uid) => axios.get(`${baseUrl}/Jobs/${uid}.json`);
+const getJob = (uid) => axios.get(`${baseUrl}/jobs/${uid}.json`);
 
-const createJob = (newJob) => axios.post(`${baseUrl}/Jobs.json`, newJob);
+const createJob = (newJob) => axios.post(`${baseUrl}/jobs.json`, newJob);
 
-const updateJob = (uid, editedJob) => axios.patch(`${baseUrl}/Jobs/${uid}.json`, editedJob);
+const updateJob = (uid, editedJob) => axios.patch(`${baseUrl}/jobs/${uid}.json`, editedJob);
 
-const deleteJob = (uid) => axios.delete(`${baseUrl}/Jobs/${uid}.json`);
+const deleteJob = (uid) => axios.delete(`${baseUrl}/jobs/${uid}.json`);
 
 export default {
   getAllJobs,

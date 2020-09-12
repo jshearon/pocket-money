@@ -7,50 +7,50 @@ import apiKeys from '../apiKey.json';
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getRequestsByUid = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/request.json?orderBy="uid"&equalTo="${uid}"`)
+  axios.get(`${baseUrl}/requests.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
-      const allRequest = response.data;
-      const myRequest = [];
+      const allRequests = response.data;
+      const myRequests = [];
 
-      if (allRequest) {
-        Object.keys(allRequest).forEach((RequestId) => {
-          const Request = allRequest[RequestId];
-          Request.id = RequestId;
-          myRequest.push(Request);
+      if (allRequests) {
+        Object.keys(allRequests).forEach((requestId) => {
+          const request = allRequests[requestId];
+          request.id = requestId;
+          myRequests.push(request);
         });
       }
 
-      resolve(myRequest);
+      resolve(myRequests);
     })
     .catch((err) => reject(err));
 });
 
 const getAllRequests = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/request.json`)
+  axios.get(`${baseUrl}/requests.json`)
     .then((response) => {
-      const allRequest = response.data;
-      const myRequest = [];
+      const allRequests = response.data;
+      const myRequests = [];
 
-      if (allRequest) {
-        Object.keys(allRequest).forEach((RequestId) => {
-          const singleRequest = allRequest[RequestId];
-          singleRequest.id = RequestId;
-          myRequest.push(singleRequest);
+      if (allRequests) {
+        Object.keys(allRequests).forEach((requestId) => {
+          const singleRequests = allRequests[requestId];
+          singleRequests.id = requestId;
+          myRequests.push(singleRequests);
         });
       }
 
-      resolve(myRequest);
+      resolve(myRequests);
     })
     .catch((err) => reject(err));
 });
 
-const getSingleRequest = (RequestId) => axios.get(`${baseUrl}/Request/${RequestId}.json`);
+const getSingleRequest = (requestId) => axios.get(`${baseUrl}/requests/${requestId}.json`);
 
-const createRequest = (newRequest) => axios.post(`${baseUrl}/Request.json`, newRequest);
+const createRequest = (newRequest) => axios.post(`${baseUrl}/requests.json`, newRequest);
 
-const updateRequest = (RequestId, editedRequest) => axios.patch(`${baseUrl}/Request/${RequestId}.json`, editedRequest);
+const updateRequest = (requestId, editedRequest) => axios.patch(`${baseUrl}/requests/${requestId}.json`, editedRequest);
 
-const deleteRequest = (itemId) => axios.delete(`${baseUrl}/items/${itemId}.json`);
+const deleteRequest = (requestId) => axios.delete(`${baseUrl}/requests/${requestId}.json`);
 
 export default {
   getRequestsByUid,
