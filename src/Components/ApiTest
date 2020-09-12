@@ -1,0 +1,80 @@
+imageUpdate = (e) => {
+    this.setState({ imgUpload: e.target.files[0] });
+  }
+
+  sendToFB = (e) => {
+    const { croppedImg } = this.state;
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`images/${croppedImg.name}`).put(croppedImg);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.warn(`Upload is ${progress}% done`);
+      // eslint-disable-next-line default-case
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.warn('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.warn('Upload is running');
+          break;
+      }
+    }, (error) => {
+      // eslint-disable-next-line default-case
+      switch (error.code) {
+        case 'storage/unauthorized':
+          break;
+        case 'storage/canceled':
+          break;
+        case 'storage/unknown':
+          break;
+      }
+    }, () => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.error('File available at', downloadURL);
+      });
+    });
+  }
+
+  setCroppedImg = (croppedImg) => {
+    this.setState({ croppedImg });
+  }
+
+  setMessageBody = (e) => {
+    this.setState({ twilMsg: e.target.value });
+  }
+
+  setMessageNumber = (e) => {
+    this.setState({ twilNum: e.target.value });
+  }
+
+  sendTwilioMsg = () => {
+    const { twilMsg, twilNum } = this.state;
+    const accountSid = process.env.REACT_APP_TWILIO_SID;
+    const authToken = process.env.REACT_APP_TWILIO_TOKEN;
+    // eslint-disable-next-line global-require
+    const client = require('twilio')(accountSid, authToken);
+
+    client.messages
+      .create({ body: twilMsg, from: '+19193440922', to: twilNum })
+      .then((message) => console.warn(message.sid));
+  }
+
+  <h2>Test Image Crop and Upload</h2>
+        <input type="file" onChange={this.imageUpdate} />
+        {
+          imgUpload
+            ? <ImageCropper src={URL.createObjectURL(imgUpload)} setCroppedImg={this.setCroppedImg} alt="what you uploaded" />
+            : ''
+        }
+        <button className="btn btn-primary" onClick={this.sendToFB}>Upload to Firebase</button>
+
+        <div>
+          <label>Message:</label>
+          <input type="text" onChange={this.setMessageBody}></input>
+
+          <label>Number:</label>
+          <input type="text" onChange={this.setMessageNumber}></input>
+
+          <button className="btn btn-primary" onClick={this.sendTwilioMsg}>Send SMS Message</button>
+        </div>
+      </div>
