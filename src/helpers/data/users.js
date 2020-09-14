@@ -27,9 +27,11 @@ const getAllUsers = () => new Promise((resolve, reject) => {
 
 const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
 
-const getUserByGuid = (guid) => axios.get(`${baseUrl}/users.json?orderBy="guid"&equalTo="${guid}"`);
+const getUserByUid = (uid) => axios.get(`${baseUrl}/users.json?orderBy="uid"&equalTo="${uid}"`);
 
 const createUser = (newUser) => axios.post(`${baseUrl}/users.json`, newUser);
+
+const createFamily = (newFamily) => axios.post(`${baseUrl}/families.json`, newFamily);
 
 const updateUser = (uid, editedUser) => axios.patch(`${baseUrl}/users/${uid}.json`, editedUser);
 
@@ -38,8 +40,9 @@ const deleteUser = (uid) => axios.delete(`${baseUrl}/users/${uid}.json`);
 export default {
   getAllUsers,
   getUser,
-  getUserByGuid,
+  getUserByUid,
   createUser,
   updateUser,
   deleteUser,
+  createFamily,
 };

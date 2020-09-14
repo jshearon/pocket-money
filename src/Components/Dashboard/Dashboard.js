@@ -1,6 +1,6 @@
 import React from 'react';
-import Auth from '../Auth/Auth';
 import users from '../../helpers/data/users';
+import Auth from '../Auth/Auth';
 
 import './Dashboard.scss';
 import Onboarding from '../Onboarding/Onboarding';
@@ -11,12 +11,17 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    users.getUserByGuid(this.props.guid.uid)
+    users.getUserByUid(this.props.guid.uid)
       .then((user) => {
-        if (user) { this.setState({ showOnboardForm: true }); }
+        console.warn(user);
+        if (!user.data) {
+          this.setState({ showOnboardForm: true });
+        }
       })
       .catch((err) => console.error(err));
   }
+
+  hideForm = () => this.setState({ showOnboardForm: false });
 
   render() {
     const { showOnboardForm } = this.state;
@@ -24,7 +29,7 @@ class Dashboard extends React.Component {
       <div className="Dashboard">
         {
         showOnboardForm
-          ? (<Onboarding guid={this.props.guid} />)
+          ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} />)
           : (<Auth authed={this.props.authed} />)
         }
       </div>
