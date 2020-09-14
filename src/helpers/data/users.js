@@ -27,6 +27,8 @@ const getAllUsers = () => new Promise((resolve, reject) => {
 
 const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
 
+const getUserByGuid = (guid) => axios.get(`${baseUrl}/users.json?orderBy="guid"&equalTo="${guid}"`);
+
 const createUser = (newUser) => axios.post(`${baseUrl}/users.json`, newUser);
 
 const updateUser = (uid, editedUser) => axios.patch(`${baseUrl}/users/${uid}.json`, editedUser);
@@ -36,6 +38,7 @@ const deleteUser = (uid) => axios.delete(`${baseUrl}/users/${uid}.json`);
 export default {
   getAllUsers,
   getUser,
+  getUserByGuid,
   createUser,
   updateUser,
   deleteUser,

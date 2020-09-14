@@ -1,0 +1,8 @@
+On init load:
+  If user !loggedin
+    --Present landing page
+  If user loggedin
+    --If user !family || !phoneNumber
+        --Present Onboarding
+    --If user family && phoneNumber
+        --Present Dashboard 
