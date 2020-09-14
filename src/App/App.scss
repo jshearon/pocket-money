@@ -1,38 +1,125 @@
-.App {
-  text-align: center;
+.App, .container {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+@font-face {
+  font-family: 'Avenir Next Demi Bold';
+  src: url('../Assets/Fonts/AvenirNext-DemiBold.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-DemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: 'Avenir Next Demi Bold Italic';
+  src: url('../Assets/Fonts/AvenirNext-DemiBoldItalic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-DemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+  font-family: 'Avenir Next Bold Italic';
+  src: url('../Assets/Fonts/AvenirNext-BoldItalic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
 
-.App-link {
-  color: #61dafb;
+@font-face {
+  font-family: 'Avenir Next Bold';
+  src: url('../Assets/Fonts/AvenirNext-Bold.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+  font-family: 'Avenir Next Medium Italic';
+  src: url('../Assets/Fonts/AvenirNext-MediumItalic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Heavy Italic';
+  src: url('../Assets/Fonts/AvenirNext-HeavyItalic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-HeavyItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Heavy';
+  src: url('../Assets/Fonts/AvenirNext-Heavy.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Italic';
+  src: url('../Assets/Fonts/AvenirNext-Italic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Medium';
+  src: url('../Assets/Fonts/AvenirNext-Medium.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Regular';
+  src: url('../Assets/Fonts/AvenirNext-Regular.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Ultralight';
+  src: url('../Assets/Fonts/AvenirNext-UltraLight.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-UltraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next Ultralight Italic';
+  src: url('../Assets/Fonts/AvenirNext-UltraLightItalic.woff2') format('woff2'),
+      url('../Assets/Fonts/AvenirNext-UltraLightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RadiantAntique';
+  src: url('../Assets/Fonts/RadiantAntique.woff2') format('woff2'),
+      url('../Assets/Fonts/RadiantAntique.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }

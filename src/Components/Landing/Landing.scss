@@ -1,0 +1,20 @@
+@import "../../styles/variables";
+
+.Landing {
+  background-image: linear-gradient(#DF4F4F, #470101);
+  height: 100vh;
+  width: 100vw;
+  h2 {
+    font-family: $ultralight;
+    color: #800000;
+    font-size: 25.5vw;
+    text-align: center;
+  }
+  img {
+    width: 75vw;
+  }
+  .btn {
+    background: transparent;
+    border-color: #DF4F4F;
+  }
+}
