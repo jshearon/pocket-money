@@ -19,18 +19,23 @@ fbConnection();
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === false
     ? (<Component {...props} authed={authed} />)
-    : (<Redirect to={{ pathname: '/onboarding', state: { from: props.location } }} />));
+    : (<Redirect to={{ pathname: '/dashboard', state: { from: props.location } }} />));
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
-const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+const PrivateRoute = ({
+  component: Component,
+  authed,
+  guid,
+  ...rest
+}) => {
   const routeChecker = (props) => (authed === true
-    ? (<Component {...props} authed={authed} />)
+    ? (<Component {...props} authed={authed} guid={guid} />)
     : (<Redirect to={{ pathname: '/', state: { from: props.location } }} />));
-  return <Route {...rest} render={(props) => routeChecker(props)} />;
+  return <Route render={(props) => routeChecker(props)} {...rest} />;
 };
 
-const RoutesContainer = ({ authed, uid }) => {
+const RoutesContainer = ({ authed, guid }) => {
   if (authed === null) {
     return (
       <div className="fas fa-spinner fa-spin" id="spinner" />
@@ -39,7 +44,7 @@ const RoutesContainer = ({ authed, uid }) => {
   return (
     <div className="container">
       <Switch>
-        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} />
+        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} />
         <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} />
         <PublicRoute path='/' component={Landing} authed={authed} />
         <Redirect from="*" to="/dashboard"/>
@@ -51,14 +56,15 @@ const RoutesContainer = ({ authed, uid }) => {
 class App extends React.Component {
   state = {
     authed: null,
+    guid: {},
   }
 
   componentDidMount() {
     this.listener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ authed: true });
+        this.setState({ authed: true, guid: user });
       } else {
-        this.setState({ authed: false });
+        this.setState({ authed: false, guid: {} });
       }
     });
   }
@@ -68,12 +74,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { authed } = this.state;
+    const { authed, guid } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <RoutesContainer authed={authed} />
+            <RoutesContainer authed={authed} guid={guid} />
           </React.Fragment>
         </BrowserRouter>
       </div>

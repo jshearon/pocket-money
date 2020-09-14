@@ -1,0 +1,9 @@
+@import '../../styles/variables';
+
+.Onboarding {
+  font-family: $medium;
+  .faceThumb {
+    width: 10vw;
+    border-radius: 50%;
+  }
+}

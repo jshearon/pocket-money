@@ -3,4 +3,6 @@ import 'firebase/auth';
 
 const getuid = () => firebase.auth().currentUser;
 
-export default { getuid };
+const firstName = (name) => name.split(' ')[0];
+
+export default { getuid, firstName };

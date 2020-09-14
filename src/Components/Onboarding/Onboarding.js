@@ -1,12 +1,12 @@
 import React from 'react';
-import Auth from '../Auth/Auth';
+import utils from '../../helpers/utils';
 
 import './Onboarding.scss';
 
 const Onboarding = (props) => (
       <div className="Onboarding">
-        <h2>Onboarding Form</h2>
-        <Auth authed={props.authed} />
+        <p>{utils.firstName(props.guid.displayName)}</p>
+        <img className="faceThumb" src={props.guid.photoURL} alt="Face Thumbnail" />
       </div>
 );
 
