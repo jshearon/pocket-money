@@ -29,19 +29,17 @@ class Dashboard extends React.Component {
     return (
       user.isParent
         ? (
-        <div className="parent">
+        <React.Fragment>
           <span className="name">{utils.firstName(guid.displayName)}</span>
           <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" />
           <p className="content">parent stats go here</p>
-          <p className="navbar1">navbar</p>
-        </div>
+          </React.Fragment>
         )
         : (
           <div className="child">
             <span className="name">{utils.firstName(guid.displayName)}</span>
             <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" />
             <p className="content">child stats go here</p>
-            <p className="navbar1">navbar</p>
           </div>
         )
     );

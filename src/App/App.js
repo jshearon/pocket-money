@@ -13,6 +13,11 @@ import './App.scss';
 import Landing from '../Components/Landing/Landing';
 import Onboarding from '../Components/Onboarding/Onboarding';
 import Dashboard from '../Components/Dashboard/Dashboard';
+import Wishlist from '../Components/Wishlist/Wishlist';
+import Jobs from '../Components/Jobs/Jobs';
+import Purchases from '../Components/Purchases/Purchases';
+import Goals from '../Components/Goals/Goals';
+import Navbar from '../Components/Navbar/Navbar';
 
 fbConnection();
 
@@ -44,11 +49,16 @@ const RoutesContainer = ({ authed, guid }) => {
   return (
     <div className="container">
       <Switch>
+        <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
+        <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
+        <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} />
+        <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
         <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} />
         <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} />
         <PublicRoute path='/' component={Landing} authed={authed} />
         <Redirect from="*" to="/dashboard"/>
       </Switch>
+      <Navbar />
     </div>
   );
 };
