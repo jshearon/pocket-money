@@ -29,11 +29,9 @@ class Dashboard extends React.Component {
     return (
       user.isParent
         ? (
-        <React.Fragment>
-          <span className="name">{utils.firstName(guid.displayName)}</span>
-          <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" />
-          <p className="content">parent stats go here</p>
-          </React.Fragment>
+        <div className="parent">
+          <p>parent stats go here</p>
+        </div>
         )
         : (
           <div className="child">
@@ -48,7 +46,7 @@ class Dashboard extends React.Component {
   render() {
     const { showOnboardForm } = this.state;
     return (
-      <div className="Dashboard">
+      <div className="Dashboard content">
         {
         showOnboardForm
           ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} />)

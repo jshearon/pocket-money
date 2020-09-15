@@ -18,6 +18,7 @@ import Jobs from '../Components/Jobs/Jobs';
 import Purchases from '../Components/Purchases/Purchases';
 import Goals from '../Components/Goals/Goals';
 import Navbar from '../Components/Navbar/Navbar';
+import utils from '../helpers/utils';
 
 fbConnection();
 
@@ -48,6 +49,8 @@ const RoutesContainer = ({ authed, guid }) => {
   }
   return (
     <div className="container">
+      <span className="name">{utils.firstName(guid.displayName)}</span>
+      <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" />
       <Switch>
         <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />

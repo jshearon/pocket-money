@@ -1,43 +1,8 @@
 @import '../../styles/variables';
 
-.name {
-  grid-area: name;
-  justify-self: center;
-  align-self: center;
-  font-family: $heavy;
-}
-.thumbnail {
-  grid-area: thumbnail;
-  width: 8vh;
-  height: 8vh;
-  border-radius: 50%;
-  border: 2px solid darkgray;
-  justify-self: center;
-  align-self: center;
-}
-.content {
-  grid-area: content;
-  background-color: orange;
-}
-.navbar1 {
-  grid-area: navbar1;
-}
-.navbar2 {
-  grid-area: navbar2;
-}
-.navbar3 {
-  grid-area: navbar3;
-}
-.navbar4 {
-  grid-area: navbar4;
-}
-.navbar5 {
-  grid-area: navbar5;
-}
-
 .child {
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
+  grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
   grid-template-rows: 20vh auto 20vh;
   grid-template-areas: 
     ". . . name thumbnail"
