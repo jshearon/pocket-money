@@ -24,7 +24,6 @@ class Onboarding extends React.Component {
       familyName: this.state.familyName,
     };
     const newAccount = {
-      uid: guid.uid,
       name: guid.displayName,
       phoneNumber: this.state.phoneNumber,
       isParent: true,

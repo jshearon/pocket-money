@@ -25,9 +25,26 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
+const getUserByUid = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((response) => {
+      const allUsers = response.data;
+      const myUsers = [];
 
-const getUserByUid = (uid) => axios.get(`${baseUrl}/users.json?orderBy="uid"&equalTo="${uid}"`);
+      if (allUsers) {
+        Object.keys(allUsers).forEach((userId) => {
+          const singleUser = allUsers[userId];
+          singleUser.id = userId;
+          myUsers.push(singleUser);
+        });
+      }
+
+      resolve(myUsers[0]);
+    })
+    .catch((err) => reject(err));
+});
+
+const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
 
 const createUser = (newUser) => axios.post(`${baseUrl}/users.json`, newUser);
 
