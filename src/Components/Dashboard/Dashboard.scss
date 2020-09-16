@@ -1,57 +1,11 @@
 @import '../../styles/variables';
 
-.parent {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
-  grid-template-rows: 10vh auto 10vh;
-  grid-template-areas: 
-    ". . name thumbnail"
-    "content content content content"
-    "navbar1 navbar2 navbar3 navbar4"
-  ;
-}
-
-.name {
-  grid-area: name;
-  justify-self: center;
-  align-self: center;
-  font-family: $heavy;
-}
-.thumbnail {
-  grid-area: thumbnail;
-  width: 8vh;
-  height: 8vh;
-  border-radius: 50%;
-  border: 2px solid darkgray;
-  justify-self: center;
-  align-self: center;
-}
-.content {
-  grid-area: content;
-  background-color: orange;
-}
-.navbar1 {
-  grid-area: navbar1;
-  background-color: pink;
-}
-.navbar2 {
-  grid-area: navbar2;
-}
-.navbar3 {
-  grid-area: navbar3;
-}
-.navbar4 {
-  grid-area: navbar4;
-}
-
 .child {
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
+  grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
   grid-template-rows: 20vh auto 20vh;
   grid-template-areas: 
-    ". . name thumbnail"
+    ". . . name thumbnail"
     "content content content content"
     "navbar1 navbar2 navbar3 navbar4"
   ;
@@ -71,14 +25,26 @@
   }
   .navbar1 {
     grid-area: navbar1;
+    justify-self: center;
+    align-self: center;
+    background-color: lightgrey;
   }
   .navbar2 {
     grid-area: navbar2;
+    justify-self: center;
+    align-self: center;
+    background-color: lightskyblue;
   }
   .navbar3 {
     grid-area: navbar3;
+    justify-self: center;
+    align-self: center;
+    background-color: moccasin;
   }
   .navbar4 {
     grid-area: navbar4;
+    justify-self: center;
+    align-self: center;
+    background-color: orange;
   }
 }

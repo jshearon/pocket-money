@@ -12,6 +12,9 @@ class Auth extends React.Component {
   processLogout = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
+    if (this.props.openMenu) {
+      this.props.openMenu();
+    }
   }
 
   render() {
