@@ -25,8 +25,8 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getUserByUid = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/users.json?orderBy="uid"&equalTo="${uid}"`)
+const getUserByEmail = (email) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users.json?orderBy="email"&equalTo="${email}"`)
     .then((response) => {
       const allUsers = response.data;
       const myUsers = [];
@@ -57,7 +57,7 @@ const deleteUser = (uid) => axios.delete(`${baseUrl}/users/${uid}.json`);
 export default {
   getAllUsers,
   getUser,
-  getUserByUid,
+  getUserByEmail,
   createUser,
   updateUser,
   deleteUser,

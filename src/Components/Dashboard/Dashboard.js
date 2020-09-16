@@ -3,7 +3,6 @@ import users from '../../helpers/data/users';
 
 import './Dashboard.scss';
 import Onboarding from '../Onboarding/Onboarding';
-import utils from '../../helpers/utils';
 
 class Dashboard extends React.Component {
   state = {
@@ -11,20 +10,28 @@ class Dashboard extends React.Component {
     user: {},
   }
 
-  componentDidMount() {
-    users.getUserByUid(this.props.guid.uid)
+  updateUser = () => {
+    const { guid, navbarOff, navbarOn } = this.props;
+    users.getUserByEmail(guid.email)
       .then((user) => {
-        user.uid
-          ? this.setState({ user })
-          : this.setState({ showOnboardForm: true });
+        if (user) {
+          this.setState({ user });
+          navbarOn();
+        } else {
+          this.setState({ showOnboardForm: true });
+          navbarOff();
+        }
       })
       .catch((err) => console.error(err));
+  }
+
+  componentDidMount() {
+    this.updateUser();
   }
 
   hideForm = () => this.setState({ showOnboardForm: false });
 
   buildDashboard = () => {
-    const { guid } = this.props;
     const { user } = this.state;
     return (
       user.isParent
@@ -34,10 +41,8 @@ class Dashboard extends React.Component {
         </div>
         )
         : (
-          <div className="child">
-            <span className="name">{utils.firstName(guid.displayName)}</span>
-            <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" />
-            <p className="content">child stats go here</p>
+          <div className="parent">
+            <p>child stats go here</p>
           </div>
         )
     );
@@ -49,7 +54,7 @@ class Dashboard extends React.Component {
       <div className="Dashboard content">
         {
         showOnboardForm
-          ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} />)
+          ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} updateUser={this.updateUser}/>)
           : this.buildDashboard()
         }
       </div>
