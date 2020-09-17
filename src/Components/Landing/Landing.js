@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from '../Auth/Auth';
 
-import piggyLogo from '../../Assets/Images/piggyLogo.svg';
+import piggyLogo from '../../Assets/Images/piggy2.svg';
 import './Landing.scss';
 
 const Landing = (props) => (<div className="Landing d-flex flex-column justify-content-around align-items-center">

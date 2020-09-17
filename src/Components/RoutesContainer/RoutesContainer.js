@@ -33,6 +33,10 @@ class RoutesContainer extends React.Component {
       guid,
       navbarOff,
       navbarOn,
+      family,
+      user,
+      updateUser,
+      updateFamily,
     } = this.props;
     if (authed === null) {
       return (
@@ -40,16 +44,44 @@ class RoutesContainer extends React.Component {
       );
     }
     return (
-      <Switch>
+      user.isParent
+        ? (<Switch>
+        <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
+        <PrivateRoute path='/dashboard'
+          component={Dashboard}
+          authed={authed}
+          guid={guid}
+          navbarOff={navbarOff}
+          navbarOn={navbarOn}
+          family={family}
+          user={user}
+          updateUser={updateUser}
+          updateFamily={updateFamily}
+          />
+        <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} />
+        <PublicRoute path='/' component={Landing} authed={authed} />
+        <Redirect from="*" to="/dashboard"/>
+      </Switch>)
+        : (<Switch>
         <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
         <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} />
         <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
-        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} />
+        <PrivateRoute path='/dashboard'
+          component={Dashboard}
+          authed={authed}
+          guid={guid}
+          navbarOff={navbarOff}
+          navbarOn={navbarOn}
+          family={family}
+          user={user}
+          updateUser={updateUser}
+          updateFamily={updateFamily}
+          />
         <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} />
         <PublicRoute path='/' component={Landing} authed={authed} />
         <Redirect from="*" to="/dashboard"/>
-      </Switch>
+      </Switch>)
     );
   }
 }

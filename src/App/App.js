@@ -9,6 +9,7 @@ import fbConnection from '../helpers/data/connection';
 import RoutesContainer from '../Components/RoutesContainer/RoutesContainer';
 import Navbar from '../Components/Navbar/Navbar';
 import utils from '../helpers/utils';
+import users from '../helpers/data/users';
 
 import './App.scss';
 import Auth from '../Components/Auth/Auth';
@@ -21,6 +22,8 @@ class App extends React.Component {
   state = {
     authed: null,
     guid: {},
+    user: {},
+    family: [],
     userMenu: false,
     navbarShow: false,
   }
@@ -37,6 +40,31 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.listener();
+  }
+
+  updateUser = () => {
+    const { guid } = this.state;
+    users.getUserWithFamily(guid.email)
+      .then((user) => {
+        if (user) {
+          this.setState({ user });
+          this.navbarOn();
+        } else {
+          this.setState({ showOnboardForm: true });
+          this.navbarOff();
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  updateFamily = (familyId, userId) => {
+    users.getFamilyMembers(familyId, userId)
+      .then((family) => {
+        if (family) {
+          this.setState({ family });
+        }
+      })
+      .catch((err) => console.error(err));
   }
 
   openMenu = () => {
@@ -59,6 +87,8 @@ class App extends React.Component {
       guid,
       userMenu,
       navbarShow,
+      family,
+      user,
     } = this.state;
     return (
       <div className="App">
@@ -71,7 +101,16 @@ class App extends React.Component {
                   <Auth authed={authed} openMenu={this.openMenu} />
                 </div>
             </CSSTransition>
-              <RoutesContainer authed={authed} guid={guid} navbarOff={this.navbarOff} navbarOn={this.navbarOn} />
+              <RoutesContainer
+                authed={authed}
+                guid={guid}
+                navbarOff={this.navbarOff}
+                navbarOn={this.navbarOn}
+                family={family}
+                user={user}
+                updateFamily={this.updateFamily}
+                updateUser={this.updateUser}
+              />
             {
               navbarShow
                 ? <Navbar />

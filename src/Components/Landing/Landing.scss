@@ -1,7 +1,8 @@
 @import "../../styles/variables";
 
 .Landing {
-  background-image: linear-gradient(#DF4F4F, #470101);
+  background-color: #FCC901;
+  /* background-image: linear-gradient(#DF4F4F, #470101); */
   height: 100vh;
   width: 100vw;
   h2 {
@@ -12,9 +13,10 @@
   }
   img {
     width: 75vw;
+    transform: translateX(10vw);
   }
   .btn {
-    background: transparent;
+    background-image: linear-gradient(#DF4F4F, #470101);;
     border-color: #DF4F4F;
   }
 }
