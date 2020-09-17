@@ -1,5 +1,12 @@
 @import '../../styles/variables';
 
+.parent {
+  h2 {
+    font-family: $regular;
+  }
+  font-family: $medium;
+}
+
 .child {
   display: grid;
   grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
