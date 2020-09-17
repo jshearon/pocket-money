@@ -25,8 +25,8 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getUserByEmail = (email) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/users.json?orderBy="email"&equalTo="${email}"`)
+const getFamilyMembers = (familyId, thisUserId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users.json?orderBy="familyId"&equalTo="${familyId}"`)
     .then((response) => {
       const allUsers = response.data;
       const myUsers = [];
@@ -35,13 +35,47 @@ const getUserByEmail = (email) => new Promise((resolve, reject) => {
         Object.keys(allUsers).forEach((userId) => {
           const singleUser = allUsers[userId];
           singleUser.id = userId;
-          myUsers.push(singleUser);
+          if (singleUser.id !== thisUserId) {
+            myUsers.push(singleUser);
+          }
         });
       }
 
-      resolve(myUsers[0]);
+      resolve(myUsers);
     })
     .catch((err) => reject(err));
+});
+
+const getUserByEmail = (email) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users.json?orderBy="email"&equalTo="${email}"`)
+    .then((response) => {
+      const allUsers = response.data;
+      const myUser = [];
+      if (allUsers) {
+        Object.keys(allUsers).forEach((userId) => {
+          const singleUser = allUsers[userId];
+          singleUser.id = userId;
+          myUser.push(singleUser);
+        });
+      }
+      resolve(myUser[0]);
+    })
+    .catch((err) => reject(err));
+});
+
+const getFamily = (famId) => axios.get(`${baseUrl}/families/${famId}.json`);
+
+const getUserWithFamily = (email) => new Promise((resolve, reject) => {
+  getUserByEmail(email)
+    .then((user) => {
+      getFamily(user.familyId)
+        .then((family) => {
+          const combinedUser = user;
+          combinedUser.familyName = family.data.familyName;
+          resolve(combinedUser);
+        });
+    })
+    .catch((err) => console.error(err));
 });
 
 const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
@@ -62,4 +96,7 @@ export default {
   updateUser,
   deleteUser,
   createFamily,
+  getFamily,
+  getUserWithFamily,
+  getFamilyMembers,
 };

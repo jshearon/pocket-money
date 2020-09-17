@@ -40,7 +40,7 @@
 }
 .content {
   grid-area: content;
-  background-color: orange;
+  overflow-y: scroll;
 }
 .navbar1 {
   grid-area: navbar1;
@@ -71,50 +71,6 @@
   justify-self: center;
   align-self: center;
   font-size: 8vw;
-}
-
-.userSettings-enter, .userSettings-appear {
-  grid-area: content;
-  position: absolute; 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  color: darkgray;
-  background-color: white;
-  opacity: 0;
-  border-radius: 0 0 0 10px;
-}
-
-.userSettings-enter-active, .userSettings-appear-active, .userSettings-enter-done {
-  grid-area: content;
-  position: absolute; 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
-  width: 80vw;
-  height: 60vh;
-  color: darkgray;
-  background-color: white;
-  opacity: 100%;
-  border-radius: 0 0 0 10px;
-  transition: all 300ms;
-}
-
-.userSettings-exit, .userSettings-exit-active {
-  grid-area: content;
-  position: absolute; 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0px;
-  color: darkgray;
-  background-color: white;
-  opacity: 0;
-  border-radius: 0 0 0 10px;
-  transition: all 150ms;
 }
 
 @font-face {

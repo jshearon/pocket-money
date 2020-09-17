@@ -13,6 +13,8 @@ import utils from '../helpers/utils';
 import './App.scss';
 import Auth from '../Components/Auth/Auth';
 
+import '../Components/UserMenu/UserMenu';
+
 fbConnection();
 
 class App extends React.Component {
@@ -25,9 +27,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.listener = firebase.auth().onAuthStateChanged((user) => {
-      user
-        ? this.setState({ authed: true, guid: user, navbarShow: true })
-        : this.setState({ authed: false, guid: {}, navbarShow: false });
+      if (user) {
+        this.setState({ authed: true, guid: user, navbarShow: true });
+      } else {
+        this.setState({ authed: false, guid: {}, navbarShow: false });
+      }
     });
   }
 
