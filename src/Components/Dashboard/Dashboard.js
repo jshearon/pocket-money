@@ -43,6 +43,20 @@ class Dashboard extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      const { user, guid } = this.props;
+      const newInfo = {
+        name: guid.displayName,
+        photoURL: guid.photoURL,
+        needsInfo: false,
+      };
+      if (user !== null && user.needsInfo === true) {
+        users.updateUser(user.id, newInfo);
+      }
+    }, 5000);
+  }
+
   componentDidUpdate() {
     if (this.props.user !== null) {
       this.updateUser();

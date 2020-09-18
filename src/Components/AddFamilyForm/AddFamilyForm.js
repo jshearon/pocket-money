@@ -7,10 +7,20 @@ class AddFamilyForm extends React.Component {
   state = {
     email: null,
     isParent: false,
+    nickname: null,
+    phoneNumber: null,
   }
 
   updateEmail = (e) => {
     this.setState({ email: e.target.value });
+  }
+
+  updateNickname = (e) => {
+    this.setState({ nickname: e.target.value });
+  }
+
+  updatePhoneNumber = (e) => {
+    this.setState({ phoneNumber: e.target.value });
   }
 
   updateIsParent = (e) => {
@@ -27,10 +37,13 @@ class AddFamilyForm extends React.Component {
     } = this.props;
 
     const newAccount = {
-      email: this.state.email,
-      isParent: this.state.isParent,
       accountCreatedOn: new Date(),
+      email: this.state.email,
       familyId,
+      nickname: this.state.nickname,
+      phoneNumber: this.state.phoneNumber,
+      isParent: this.state.isParent,
+      needsInfo: true,
     };
     users.createUser(newAccount)
       .then(() => {
@@ -48,6 +61,14 @@ class AddFamilyForm extends React.Component {
         <div className="form-group">
           <label htmlFor="email">New members email address</label>
           <input type="text" className="form-control" id="email" placeholder="alex@gmail.com" onChange={this.updateEmail} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="nickname">Nickname for user</label>
+          <input type="text" className="form-control" id="nickname" placeholder="Zoe" onChange={this.updateNickname} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phoneNumber">Member's phone number</label>
+          <input type="text" className="form-control" id="phoneNumber" placeholder="(615) 867-5309" onChange={this.updatePhoneNumber} />
         </div>
         <div className="form-group">
           <label htmlFor="isParent">User is Parent (can approve purchases)</label>
