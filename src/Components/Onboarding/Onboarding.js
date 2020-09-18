@@ -23,7 +23,7 @@ class Onboarding extends React.Component {
   }
 
   createAccount = (e) => {
-    const { guid, hideForm, updateUser } = this.props;
+    const { guid, hideForm, getUser } = this.props;
     const newFamily = {
       familyName: this.state.familyName,
     };
@@ -41,8 +41,8 @@ class Onboarding extends React.Component {
         newAccount.familyId = res.data.name;
         users.createUser(newAccount)
           .then(() => {
-            updateUser();
             hideForm();
+            getUser(guid.email);
           });
       })
       .catch((err) => console.error(err));

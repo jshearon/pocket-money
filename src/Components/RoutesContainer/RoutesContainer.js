@@ -33,6 +33,8 @@ class RoutesContainer extends React.Component {
       guid,
       navbarOff,
       navbarOn,
+      user,
+      getUser,
     } = this.props;
     if (authed === null) {
       return (
@@ -41,12 +43,12 @@ class RoutesContainer extends React.Component {
     }
     return (
       <Switch>
-        <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
+        { user && user.isParent && <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />}
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
         <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} />
         <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
-        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} />
-        <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} />
+        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} user={user} getUser={getUser} />
+        <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} getUser={getUser} />
         <PublicRoute path='/' component={Landing} authed={authed} />
         <Redirect from="*" to="/dashboard"/>
       </Switch>

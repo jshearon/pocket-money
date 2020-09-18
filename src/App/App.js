@@ -9,6 +9,7 @@ import fbConnection from '../helpers/data/connection';
 import RoutesContainer from '../Components/RoutesContainer/RoutesContainer';
 import Navbar from '../Components/Navbar/Navbar';
 import utils from '../helpers/utils';
+import users from '../helpers/data/users';
 
 import './App.scss';
 import Auth from '../Components/Auth/Auth';
@@ -23,12 +24,17 @@ class App extends React.Component {
     guid: {},
     userMenu: false,
     navbarShow: false,
+    user: null,
   }
 
   componentDidMount() {
-    this.listener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ authed: true, guid: user, navbarShow: true });
+    // if (this.state.guid.email) {
+    //   this.getUser(this.state.guid.email);
+    // }
+    this.listener = firebase.auth().onAuthStateChanged((guid) => {
+      if (guid) {
+        this.setState({ authed: true, guid, navbarShow: true });
+        this.getUser(guid.email);
       } else {
         this.setState({ authed: false, guid: {}, navbarShow: false });
       }
@@ -39,6 +45,18 @@ class App extends React.Component {
     this.listener();
   }
 
+  getUser = (email) => {
+    users.getUserByEmail(email)
+      .then((user) => {
+        if (user) {
+          this.setState({ user });
+        } else {
+          this.setState({ user: {} });
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
   openMenu = () => {
     this.setState((prevState) => ({
       userMenu: !prevState.userMenu,
@@ -46,11 +64,15 @@ class App extends React.Component {
   }
 
   navbarOff = () => {
-    this.setState({ navbarShow: false });
+    if (this.state.navbarShow !== false) {
+      this.setState({ navbarShow: false });
+    }
   }
 
   navbarOn = () => {
-    this.setState({ navbarShow: true });
+    if (this.state.navbarShow !== true) {
+      this.setState({ navbarShow: true });
+    }
   }
 
   render() {
@@ -59,6 +81,7 @@ class App extends React.Component {
       guid,
       userMenu,
       navbarShow,
+      user,
     } = this.state;
     return (
       <div className="App">
@@ -71,7 +94,7 @@ class App extends React.Component {
                   <Auth authed={authed} openMenu={this.openMenu} />
                 </div>
             </CSSTransition>
-              <RoutesContainer authed={authed} guid={guid} navbarOff={this.navbarOff} navbarOn={this.navbarOn} />
+              <RoutesContainer authed={authed} guid={guid} navbarOff={this.navbarOff} navbarOn={this.navbarOn} getUser={this.getUser} user={user} />
             {
               navbarShow
                 ? <Navbar />
