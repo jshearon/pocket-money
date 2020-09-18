@@ -12,23 +12,25 @@ class Dashboard extends React.Component {
   state = {
     showOnboardForm: false,
     addFamilyForm: false,
-    user: {},
     family: [],
   }
 
   updateUser = () => {
-    const { guid, navbarOff, navbarOn } = this.props;
-    users.getUserWithFamily(guid.email)
-      .then((user) => {
-        if (user) {
-          this.setState({ user });
-          navbarOn();
-        } else {
-          this.setState({ showOnboardForm: true });
-          navbarOff();
-        }
-      })
-      .catch((err) => console.error(err));
+    const {
+      navbarOff,
+      navbarOn,
+      user,
+    } = this.props;
+    if (user === null) return;
+    if (user.email) {
+      if (this.state.showOnboardForm === true) {
+        this.setState({ showOnboardForm: false });
+      }
+      navbarOn();
+    } else if (this.state.showOnboardForm === false && !user.email) {
+      this.setState({ showOnboardForm: true });
+      navbarOff();
+    }
   }
 
   updateFamily = (familyId, userId) => {
@@ -41,11 +43,15 @@ class Dashboard extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  componentDidMount() {
-    this.updateUser();
+  componentDidUpdate() {
+    if (this.props.user !== null) {
+      this.updateUser();
+    }
   }
 
-  hideForm = () => this.setState({ showOnboardForm: false });
+  hideForm = () => {
+    this.setState({ showOnboardForm: false });
+  }
 
   toggleAddFamilyForm = () => {
     this.setState((prevState) => ({
@@ -54,7 +60,8 @@ class Dashboard extends React.Component {
   }
 
   buildDashboard = () => {
-    const { user, addFamilyForm, family } = this.state;
+    const { addFamilyForm, family } = this.state;
+    const { user } = this.props;
     return (
       user.isParent
         ? (
@@ -82,11 +89,17 @@ class Dashboard extends React.Component {
 
   render() {
     const { showOnboardForm } = this.state;
+    const { getUser, user } = this.props;
+    if (user === null) {
+      return (
+        <div className="fas fa-spinner fa-spin" id="spinner" />
+      );
+    }
     return (
       <div className="Dashboard content">
         {
         showOnboardForm
-          ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} updateUser={this.updateUser}/>)
+          ? (<Onboarding guid={this.props.guid} hideForm={this.hideForm} getUser={getUser} />)
           : this.buildDashboard()
         }
       </div>
