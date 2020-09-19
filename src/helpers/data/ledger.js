@@ -6,8 +6,8 @@ import apiKeys from '../apiKey.json';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const getLedgerByUid = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/ledger.json?orderBy="uid"&equalTo="${uid}"`)
+const getLedgerByChildId = (childId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/ledger.json?orderBy="childId"&equalTo="${childId}"`)
     .then((response) => {
       const allLedger = response.data;
       const myLedger = [];
@@ -53,7 +53,7 @@ const updateLedger = (ledgerId, editedLedger) => axios.patch(`${baseUrl}/ledger/
 const deleteLedger = (ledgerId) => axios.delete(`${baseUrl}/ledger/${ledgerId}.json`);
 
 export default {
-  getLedgerByUid,
+  getLedgerByChildId,
   getAllLedger,
   createLedger,
   updateLedger,

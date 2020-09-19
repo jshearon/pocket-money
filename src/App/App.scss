@@ -8,6 +8,14 @@
   overflow: hidden;
 }
 
+.loader {
+  position: absolute;
+  grid-area: content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -17,7 +25,7 @@
   grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
   grid-template-rows: 10vh auto 10vh;
   grid-template-areas: 
-    ". . . name thumbnail"
+    "blank blank blank name thumbnail"
     "content content content content content"
     "navbar1 navbar2 navbar3 navbar4 navbar5"
   ;
@@ -25,11 +33,13 @@
 
 .firstName {
   grid-area: name;
+  background-color: #64C5EB;
   justify-self: center;
   align-self: center;
   font-family: $heavy;
 }
 .thumbnail {
+  background-color: #64C5EB;
   grid-area: thumbnail;
   width: 8vh;
   height: 8vh;
@@ -41,6 +51,7 @@
 .content {
   grid-area: content;
   overflow-y: scroll;
+  background-color: #FEB326;
 }
 .navbar1 {
   grid-area: navbar1;

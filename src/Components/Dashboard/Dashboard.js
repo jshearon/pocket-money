@@ -106,7 +106,7 @@ class Dashboard extends React.Component {
     const { getUser, user } = this.props;
     if (user === null) {
       return (
-        <div className="fas fa-spinner fa-spin" id="spinner" />
+        <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>
       );
     }
     return (

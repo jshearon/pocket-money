@@ -87,7 +87,7 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <div className="container">
-            <span className="firstName">{guid.displayName ? utils.firstName(guid.displayName) : ''}</span>
+            <div className="firstName">{guid.displayName ? utils.firstName(guid.displayName) : ''}</div>
             <img className="thumbnail" src={guid.photoURL} alt="user thumbnail" onClick={this.openMenu} />
             <CSSTransition in={userMenu} timeout={250} classNames="userSettings" unmountOnExit appear exit>
                 <div className="d-flex justify-content-center flex-column align-items-center">

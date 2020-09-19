@@ -5,4 +5,15 @@ const getuid = () => firebase.auth().currentUser;
 
 const firstName = (name) => name.split(' ')[0];
 
-export default { getuid, firstName };
+const getBalance = (items) => {
+  let balance = 0;
+  items.forEach((item) => {
+    console.error(item.amount);
+    item.isDebit
+      ? balance -= item.amount
+      : balance += item.amount;
+  });
+  return `$${balance.toFixed(2)}`;
+};
+
+export default { getuid, firstName, getBalance };
