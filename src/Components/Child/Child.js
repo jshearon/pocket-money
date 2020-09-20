@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import CountUp from 'react-countup';
 import ledger from '../../helpers/data/ledger';
 import users from '../../helpers/data/users';
 
@@ -12,7 +13,7 @@ import DisplayLedger from '../DisplayLedger/DisplayLedger';
 class Child extends React.Component {
   state = {
     childData: {},
-    balance: {},
+    balance: 0,
     childLedger: [],
     isLoaded: false,
     addLedgerForm: false,
@@ -92,7 +93,8 @@ class Child extends React.Component {
       ledgerData,
     } = this.state;
     const { childId } = this.props.match.params;
-    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} deleteLedgerItem={this.deleteLedgerItem} />);
+    const { user } = this.props;
+    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} deleteLedgerItem={this.deleteLedgerItem} user={user} />);
     if (!isLoaded) {
       return <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>;
     }
@@ -110,14 +112,25 @@ class Child extends React.Component {
           />
         </CSSTransition>
         <div className="child-info d-flex flex-row justify-content-around align-items-center py-3 px-2 w-100">
-          <img src={childData.photoURL} alt="child" className="ChildThumbnail child-parent-view-image"/>
+          {
+            user.isParent && <img src={childData.photoURL} alt="child" className="ChildThumbnail child-parent-view-image"/>
+          }
           <div>
-            <h2>{utils.firstName(childData.name)}</h2>
-            <span className="badge">Balance: {balance}</span>
+            {
+              user.isParent && <h2>{utils.firstName(childData.name)}</h2>
+            }
+            {
+              user.isParent
+                ? <span className="badge">Balance: ${balance}</span>
+                : <div className="badgeLarge">Balance: $<CountUp start={0} end={balance * 1} decimals={2} duration={4} /></div>
+            }
           </div>
         </div>
-        <button className="btn btn-primary m-3" onClick={this.toggleAddLedgerForm} id="newItem"><i className="fas fa-plus-circle"></i> New Entry</button>
-        <div className="child-ledger">
+        {
+          user.isParent && <button className="btn btn-primary m-3" onClick={this.toggleAddLedgerForm} id="newItem"><i className="fas fa-plus-circle"></i> New Entry</button>
+
+        }
+              <div className="child-ledger">
           {printLedger}
         </div>
       </div>
