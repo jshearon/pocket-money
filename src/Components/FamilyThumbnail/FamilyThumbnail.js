@@ -7,7 +7,7 @@ import utils from '../../helpers/utils';
 const FamilyThumbnails = (props) => (
   <div className="d-flex flex-column justify-content-between text-center">
       <Link to={`/child/${props.member.id}`}>
-        <img className="addBlankUser" src={props.member.photoURL ? props.member.photoURL : blankUser} alt="Face" id={props.member.id} />
+        <img className="FamilyThumbnail" src={props.member.photoURL ? props.member.photoURL : blankUser} alt="Face" id={props.member.id} />
       </Link>
     <h5>{props.member.name ? utils.firstName(props.member.name) : `${props.member.email.substring(0, 6)}...`}</h5>
   </div>

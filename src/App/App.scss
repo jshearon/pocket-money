@@ -6,6 +6,23 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  .btn {
+    border-radius: 1000px;
+  }
+  .login-button {
+    border-radius: 1000px 0 0 1000px;
+    width: 50vw;
+    font-size: 5vw;
+  }
+}
+
+.btn {
+  border: none;
+  background-color: $backgroundsAndButtons;
+  color: $primaryText;
+  font-family: $medium;
+  font-size: 1.4rem;
+  padding: 2vw;
 }
 
 .loader {
@@ -33,13 +50,11 @@
 
 .firstName {
   grid-area: name;
-  background-color: #64C5EB;
   justify-self: center;
   align-self: center;
   font-family: $heavy;
 }
 .thumbnail {
-  background-color: #64C5EB;
   grid-area: thumbnail;
   width: 8vh;
   height: 8vh;
@@ -51,7 +66,6 @@
 .content {
   grid-area: content;
   overflow-y: scroll;
-  background-color: #FEB326;
 }
 .navbar1 {
   grid-area: navbar1;

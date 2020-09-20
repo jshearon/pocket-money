@@ -1,49 +1,55 @@
+@import '../../styles/variables';
+
 .addFamilyForm {
-  position: absolute;
+  grid-area: content;
+  position: absolute; 
   right: 5vw;
   top: 11vh;
   width: 100vw;
   height: 40vh;
+  color: $primaryText;
+  background-color: whitesmoke;
+}
+
+.big-checkbox {
+  width: 6vw;
+  height: 6vw;
 }
 
 .addFamilyForm-enter, .addFamilyForm-appear {
+  overflow-y: hidden;
   grid-area: content;
   position: absolute; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
   width: 100vw;
   height: 0;
-  color: darkgray;
-  background-color: white;
   padding: 5vw;
+  opacity: 0;
+  background-color: whitesmoke;
 }
 
 .addFamilyForm-enter-active, .addFamilyForm-enter-done, .addFamilyForm-appear-active {
+  overflow-y: hidden;
   grid-area: content;
   position: absolute; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
   width: 100vw;
   height: 90vh;
-  color: darkgray;
-  background-color: white;
-  border-radius: 0 0 0 10px;
   padding: 5vw;
-  transition: all 350ms;
+  opacity: 1;
+  transition: all 500ms ease-out;
+  background-color: whitesmoke;
 }
 
 .addFamilyForm-exit, .addFamilyForm-exit-active {
+  overflow-y: hidden;
   grid-area: content;
   position: absolute; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
-  top: 0;
-  right: 0;
   width: 100vw;
   height: 0px;
-  color: darkgray;
-  background-color: white;
   padding: 5vw;
-  transition: all 350ms;
+  opacity: 0;
+  transition: all 500ms ease-out;
+  background-color: whitesmoke;
 }
