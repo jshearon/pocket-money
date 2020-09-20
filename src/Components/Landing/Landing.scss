@@ -22,14 +22,14 @@
 
 
 .Landing {
-  background-color: #FCC901;
+  background-color: $backgroundsAndButtons;
   height: 100vh;
   width: 100vw;
   h2:nth-child(1) {
     font-family: $heavy;
     line-height: 0;
     margin: 0;
-    color: #800000;
+    color:$primaryText;
     font-size: 20vw;
     text-align: center;
     /* @include boxShadow(#D4AD22, 500); */
@@ -42,16 +42,18 @@
 
   }
   h2:nth-child(2) {
+    transform: translate(80vw, 80vw);
     font-family: $heavy;
     line-height: 0;
     margin: 0; 
     padding: 0;
-    color: #800000;
+    color: $primaryText;
     font-size: 20vw;
     text-align: center;
     /* @include boxShadow(#c29800, 500); */
     @include boxShadow(#E84D8A, 500);
     animation: textexpand 1s ease-in forwards;
+    animation-delay: 750ms;
     /* text-shadow: 0px 3px 0px #D8AD00,
                  0px 14px 10px rgba(0,0,0,0.15),
                  0px 24px 2px rgba(0,0,0,0.1),
@@ -60,13 +62,11 @@
   }
   img {
     width: 75vw;
-    transform: translateY(20vw);
     z-index: 2;
   }
 
   .btn {
-    background: transparent;
-    border-color: #DF4F4F;
-    color: #800000;
+    background: $accentColor1;
+    color: $primaryText;
   }
 }

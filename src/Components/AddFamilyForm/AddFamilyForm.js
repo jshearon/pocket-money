@@ -74,8 +74,8 @@ class AddFamilyForm extends React.Component {
           <label htmlFor="isParent">User is Parent (can approve purchases)</label>
           <input type="checkbox" className="form-control" id="isParent" onChange={this.updateIsParent} checked={this.state.isParent} />
         </div>
-        <button className="btn btn-primary" onClick={this.props.toggleAddFamilyForm}>Cancel</button>
         <button className="btn btn-primary" onClick={this.createAccount}>Create Account</button>
+        <button className="btn btn-primary" onClick={this.props.toggleAddFamilyForm}>Cancel</button>
       </div>
     );
   }

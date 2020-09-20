@@ -16,6 +16,7 @@ class Child extends React.Component {
     childLedger: [],
     isLoaded: false,
     addLedgerForm: false,
+    ledgerData: {},
   }
 
   getChildData() {
@@ -51,7 +52,19 @@ class Child extends React.Component {
       });
   }
 
-  toggleAddLedgerForm = () => {
+  editLedgerItem = (ledgerData) => {
+    this.setState({ ledgerData });
+    this.toggleAddLedgerForm();
+  }
+
+  clearLedger = () => {
+    this.setState({ ledger: {} });
+  }
+
+  toggleAddLedgerForm = (e) => {
+    if (e && e.target.id === 'newItem') {
+      this.setState({ ledgerData: {} });
+    }
     this.setState((prevState) => ({
       addLedgerForm: !prevState.addLedgerForm,
     }));
@@ -68,28 +81,34 @@ class Child extends React.Component {
       addLedgerForm,
       balance,
       childLedger,
+      ledgerData,
     } = this.state;
     const { childId } = this.props.match.params;
-    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger ledgerItem={ledgerItem} />);
+    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} />);
     if (!isLoaded) {
       return <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>;
     }
     return (
       <div className="Child content d-flex flex-column justify-content-start">
-        <CSSTransition in={addLedgerForm} timeout={250} classNames="addFamilyForm" unmountOnExit appear exit>
+        <CSSTransition key={'addFamilyForm'} in={addLedgerForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
           <AddLedgerForm
             childId={childId}
             childName={childData.name}
             parentName={this.props.user.id}
             toggleAddLedgerForm={this.toggleAddLedgerForm}
             updateLedger={this.updateLedger}
+            ledgerData={ledgerData}
+            clearLedger={this.clearLedger}
           />
         </CSSTransition>
-        <div className="child-info d-flex flex-row justify-content-start align-items-center p-3 w-100">
-          <img src={childData.photoURL} alt="child" className="FamilyThumbnail child-parent-view-image"/>
-          <h4>{utils.firstName(childData.name)} has saved {balance}</h4>
+        <div className="child-info d-flex flex-row justify-content-around align-items-center py-3 px-2 w-100">
+          <img src={childData.photoURL} alt="child" className="ChildThumbnail child-parent-view-image"/>
+          <div>
+            <h2>{utils.firstName(childData.name)}</h2>
+            <span className="badge">Balance: {balance}</span>
+          </div>
         </div>
-        <button className="btn btn-primary w-50 m-auto" onClick={this.toggleAddLedgerForm}><i className="fas fa-plus-square"></i> Add Money</button>
+        <button className="btn btn-primary m-3" onClick={this.toggleAddLedgerForm} id="newItem"><i className="fas fa-plus-circle"></i> New Entry</button>
         <div className="child-ledger">
           {printLedger}
         </div>
