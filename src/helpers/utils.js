@@ -8,7 +8,6 @@ const firstName = (name) => name.split(' ')[0];
 const getBalance = (items) => {
   let balance = 0;
   items.forEach((item) => {
-    console.error(item.amount);
     item.isDebit
       ? balance -= item.amount
       : balance += item.amount;

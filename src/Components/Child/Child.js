@@ -57,6 +57,14 @@ class Child extends React.Component {
     this.toggleAddLedgerForm();
   }
 
+  deleteLedgerItem = (itemId) => {
+    ledger.deleteLedger(itemId)
+      .then(() => {
+        this.updateLedger(this.props.match.params.childId);
+      })
+      .catch((err) => console.error(err));
+  }
+
   clearLedger = () => {
     this.setState({ ledger: {} });
   }
@@ -84,7 +92,7 @@ class Child extends React.Component {
       ledgerData,
     } = this.state;
     const { childId } = this.props.match.params;
-    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} />);
+    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} deleteLedgerItem={this.deleteLedgerItem} />);
     if (!isLoaded) {
       return <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>;
     }
