@@ -48,7 +48,7 @@ const getJob = (uid) => axios.get(`${baseUrl}/jobs/${uid}.json`);
 
 const createJob = (newJob) => axios.post(`${baseUrl}/jobs.json`, newJob);
 
-const updateJob = (uid, editedJob) => axios.patch(`${baseUrl}/jobs/${uid}.json`, editedJob);
+const updateJob = (jobId, editedJob) => axios.patch(`${baseUrl}/jobs/${jobId}.json`, editedJob);
 
 const deleteJob = (uid) => axios.delete(`${baseUrl}/jobs/${uid}.json`);
 

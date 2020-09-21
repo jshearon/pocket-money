@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+
+.ChildThumbnail {
+  border-radius: 50%;
+  border: 2px solid darkgray;
+  width: 25vw;
+  margin: 1vw;
+}
+
+.Child {
+  background-color: whitesmoke;
+  font-family: $regular;
+}
+
+.badge {
+  background-color: $accentColor1;
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 1000px;
+  color: whitesmoke;
+}
+
+.badgeTight {
+  img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    border: 1px solid $accentColor2;
+  }
+  background-color: $accentColor1;
+  font-size: 1rem;
+  padding: .3rem 1rem .3rem .3rem;
+  border-radius: 1000px;
+  color: whitesmoke;
+  margin-top: .3rem;
+}
+
+.badgeLarge {
+  background-color: $accentColor1;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 1000px;
+  color: whitesmoke;
+  margin-top: 1rem;
+}

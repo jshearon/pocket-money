@@ -97,7 +97,7 @@ class App extends React.Component {
               <RoutesContainer authed={authed} guid={guid} navbarOff={this.navbarOff} navbarOn={this.navbarOn} getUser={this.getUser} user={user} />
             {
               navbarShow
-                ? <Navbar />
+                ? <Navbar user={user} />
                 : ''
             }
           </div>

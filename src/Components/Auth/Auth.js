@@ -21,7 +21,7 @@ class Auth extends React.Component {
     const { authed } = this.props;
     const loginButton = authed
       ? <button className="btn btn-warning login-button" onClick={this.processLogout}>Logout</button>
-      : <button className="btn btn-primary login-button" onClick={this.processLogin}><i className="fab fa-google"></i> Login <i class="fas fa-arrow-right ml-5"></i></button>;
+      : <button className="btn btn-primary login-button" onClick={this.processLogin}><i className="fab fa-google"></i> Login <i className="fas fa-arrow-right ml-5"></i></button>;
     return (
       <div className="Auth d-flex w-100 flex-row justify-content-end">
         {loginButton}

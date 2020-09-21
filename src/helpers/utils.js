@@ -12,7 +12,7 @@ const getBalance = (items) => {
       ? balance -= item.amount
       : balance += item.amount;
   });
-  return `$${balance.toFixed(2)}`;
+  return balance.toFixed(2);
 };
 
 export default { getuid, firstName, getBalance };

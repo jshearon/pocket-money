@@ -1,7 +1,33 @@
 @import '../../styles/variables';
 
 .DisplayLedger {
+  font-family: $bold;
   box-shadow: 0px 5px 15px 0px #c9c9c9;
   border-radius: 10px;
-  min-height: 20vh;
+  padding: 1rem;
+  text-align: left;
+  color: $primaryText;
+  p {
+    color: $secondaryText;
+  }
+}
+
+.isCredit {
+  color: $accentColor1;
+}
+
+.isDebit {
+  color: $accentColor3;
+}
+
+.ledger-btn {
+  font-size: .8rem !important;
+  padding: .2rem !important;
+  width: 25%;
+  margin-left: .2rem;
+}
+
+.ledger-btn-wide {
+  font-size: .8rem !important;
+  padding: .5rem 1rem .5rem 1rem !important;
 }

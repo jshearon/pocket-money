@@ -3,6 +3,7 @@ import axios from 'axios';
 // import utils from '../utils';
 
 import apiKeys from '../apiKey.json';
+import utils from '../utils';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
@@ -78,6 +79,18 @@ const getUserWithFamily = (email) => new Promise((resolve, reject) => {
     .catch((err) => console.error(err));
 });
 
+const getUserThumbnail = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users/${uid}.json`)
+    .then((returnedUser) => {
+      const userThumbnail = {
+        name: utils.firstName(returnedUser.data.name),
+        photoURL: returnedUser.data.photoURL,
+      };
+      resolve(userThumbnail);
+    })
+    .catch((err) => console.error(err));
+});
+
 const getUser = (uid) => axios.get(`${baseUrl}/users/${uid}.json`);
 
 const createUser = (newUser) => axios.post(`${baseUrl}/users.json`, newUser);
@@ -92,6 +105,7 @@ export default {
   getAllUsers,
   getUser,
   getUserByEmail,
+  getUserThumbnail,
   createUser,
   updateUser,
   deleteUser,
