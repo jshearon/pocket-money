@@ -6,6 +6,7 @@ class SingleJob extends React.Component {
     const {
       user,
       singleJob,
+      deleteJob,
     } = this.props;
     return (
       <div className="DisplayLedger m-4">
@@ -18,8 +19,8 @@ class SingleJob extends React.Component {
         </div>
         {
           user && user.isParent && <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn" onClick={() => {  }}>Edit</button>
-          <button className="btn ledger-btn" onClick={() => {  }}>Delete</button>
+          <button className="btn ledger-btn" onClick={() => {}}>Edit</button>
+          <button className="btn ledger-btn" onClick={() => { deleteJob(singleJob.id); }}>Delete</button>
         </div>
         }
       </div>

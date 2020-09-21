@@ -27,6 +27,18 @@ class Jobs extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  deleteJob = (jobId) => {
+    jobsData.deleteJob(jobId)
+      .then(() => {
+        this.updateJobs();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  editJob = () => {
+
+  }
+
   componentDidMount() {
     this.updateJobs();
   }
@@ -34,7 +46,7 @@ class Jobs extends React.Component {
   render() {
     const { user } = this.props;
     const { addJobForm, jobsList } = this.state;
-    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} user={user} />);
+    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} deleteJob={this.deleteJob} user={user} />);
     return (
       <div className="Jobs content d-flex flex-column justify-content-start">
         <CSSTransition key={'addJobForm'} in={addJobForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
