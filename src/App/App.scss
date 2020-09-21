@@ -53,13 +53,14 @@
   justify-self: center;
   align-self: center;
   font-family: $heavy;
+  color: $accentColor2;
 }
 .thumbnail {
   grid-area: thumbnail;
   width: 8vh;
   height: 8vh;
   border-radius: 50%;
-  border: 2px solid darkgray;
+  border: 2px solid $accentColor2;
   justify-self: center;
   align-self: center;
 }

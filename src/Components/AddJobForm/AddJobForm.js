@@ -49,7 +49,7 @@ class AddJobForm extends React.Component {
       expireDate,
       payAmount,
       isComplete: false,
-      completeDate: 0,
+      approvedDate: 0,
       acceptedBy: 0,
     };
     jobsData.createJob(newJobEntry)
@@ -80,7 +80,7 @@ class AddJobForm extends React.Component {
       expireDate,
       payAmount,
       isComplete: jobData.isComplete,
-      completeDate: jobData.completeDate,
+      approvedDate: jobData.approvedDate,
       acceptedBy: jobData.acceptedBy,
     };
     jobsData.updateJob(jobData.id, updatedJobEntry)
@@ -108,7 +108,9 @@ class AddJobForm extends React.Component {
       payAmount,
       description,
       expireDate,
+      jobData,
     } = this.state;
+    const { user } = this.props;
     return (
       <div className="AddFamilyForm d-flex flex-column justify-content-around">
         <h2>Add New Job</h2>
@@ -116,7 +118,7 @@ class AddJobForm extends React.Component {
         <div className="form-row align-items-center">
           <div className="form-group col">
             <label htmlFor="payAmount">Job Pays</label>
-            <input type="number" className="form-control w-75" id="payAmount" placeholder="0.00" onChange={this.updateState} value={payAmount}/>
+            <input type="number" className="form-control w-75" id="payAmount" placeholder="0.00" onChange={this.updateState} value={payAmount && payAmount.toFixed(2)}/>
           </div>
           <div className="form-group col">
             <label htmlFor="expireDate">Job Expire Date</label>
@@ -130,8 +132,11 @@ class AddJobForm extends React.Component {
           </div>
         </div>
         </div>
-            <button className="btn btn-primary m-1" onClick={this.editEntry}>Edit Transaction</button>
-            <button className="btn btn-primary m-1" onClick={this.addNewJob}>Complete Transaction</button>
+            {
+              user.isParent && jobData.id && jobData.acceptedBy !== 0
+                ? <button className="btn btn-primary m-1" onClick={this.editEntry}>Edit Job</button>
+                : <button className="btn btn-primary m-1" onClick={this.addNewJob}>Complete Job</button>
+            }
         <button className="btn btn-primary m-1" onClick={this.props.toggleAddJobForm}>Cancel</button>
       </div>
     );
