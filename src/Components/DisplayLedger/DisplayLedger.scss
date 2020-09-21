@@ -1,12 +1,14 @@
 @import '../../styles/variables';
 
 .DisplayLedger {
+  font-family: $bold;
   box-shadow: 0px 5px 15px 0px #c9c9c9;
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
-  h4:nth-child(3) {
-    font-family: $demibold;
+  color: $primaryText;
+  p {
+    color: $secondaryText;
   }
 }
 

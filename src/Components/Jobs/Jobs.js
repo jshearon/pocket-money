@@ -40,6 +40,17 @@ class Jobs extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  approveJob = (jobId) => {
+    const editedJob = {
+      approvedDate: new Date(),
+    };
+    jobsData.updateJob(jobId, editedJob)
+      .then(() => {
+        this.updateJobs();
+      })
+      .catch((err) => console.error(err));
+  }
+
   editJob = (jobData) => {
     this.setState({ jobData });
     this.toggleAddJobForm();
@@ -52,7 +63,7 @@ class Jobs extends React.Component {
   render() {
     const { user } = this.props;
     const { addJobForm, jobsList, jobData } = this.state;
-    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} editJob={this.editJob} deleteJob={this.deleteJob} user={user} />);
+    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} editJob={this.editJob} deleteJob={this.deleteJob} approveJob={this.approveJob} user={user} />);
     return (
       <div className="Jobs content d-flex flex-column justify-content-start">
         <CSSTransition key={'addJobForm'} in={addJobForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>

@@ -32,8 +32,8 @@ class SingleJob extends React.Component {
       <div className="DisplayLedger m-4">
         <div className="d-flex justify-content-between align-items-start">
         <div className="w-100 ml-3">
-          <h4 className="text-left">{singleJob.description}</h4>
-          <p className="text-left">Expires on {moment(singleJob.expireDate).format('MMM Do YYYY')}</p>
+          <h4>{singleJob.description}</h4>
+          <p>Expires on {moment(singleJob.expireDate).format('MMM Do YYYY')}</p>
         </div>
         <h4>${singleJob.payAmount.toFixed(2)}</h4>
         </div>
@@ -46,17 +46,17 @@ class SingleJob extends React.Component {
         }
         { // assigned but not complete
           user && user.isParent && singleJob.acceptedBy !== 0 && !singleJob.isComplete && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" /> <i class="fas fa-hourglass-start"></i> In Progress</div>
+          <div className="badgeTight"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" /> <i className="fas fa-hourglass-start"></i> In Progress</div>
         </div>
         }
         { // complete but not approved
           user && user.isParent && singleJob.acceptedBy !== 0 && singleJob.isComplete && singleJob.approvedDate === 0 && <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn-wide" onClick={() => { approveJob(singleJob.id); }}><i class="fas fa-check"></i> Approve {acceptedByThumbnail.name}'s work</button>
+          <button className="btn ledger-btn-wide" onClick={() => { approveJob(singleJob.id); }}><i className="fas fa-check"></i> Approve {acceptedByThumbnail.name}'s work</button>
         </div>
         }
         { // complete and approved
           user && user.isParent && singleJob.acceptedBy !== 0 && singleJob.isComplete && singleJob.approvedDate !== 0 && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight">Completed by {acceptedByThumbnail.name}</div>
+          <h6><i className="far fa-thumbs-up"></i> Completed by {acceptedByThumbnail.name}</h6>
         </div>
         }
         { /* Child Button States */ }
