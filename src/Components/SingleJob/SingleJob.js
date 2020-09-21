@@ -28,6 +28,14 @@ class SingleJob extends React.Component {
       markJobComplete,
     } = this.props;
     const { acceptedByThumbnail } = this.state;
+    const newDeposit = {
+      amount: singleJob.payAmount,
+      childId: singleJob.acceptedBy,
+      depositedBy: singleJob.createdBy,
+      description: singleJob.description,
+      entryDate: new Date(),
+      isDebit: false,
+    };
     return (
       <div className="DisplayLedger m-4">
         <div className="d-flex justify-content-between align-items-start">
@@ -51,7 +59,7 @@ class SingleJob extends React.Component {
         }
         { // complete but not approved
           user && user.isParent && singleJob.acceptedBy !== 0 && singleJob.isComplete && singleJob.approvedDate === 0 && <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn-wide" onClick={() => { approveJob(singleJob.id); }}><i className="fas fa-check"></i> Approve {acceptedByThumbnail.name}'s work</button>
+          <button className="btn ledger-btn-wide" onClick={() => { approveJob(singleJob.id, newDeposit); }}><i className="fas fa-check"></i> Approve {acceptedByThumbnail.name}'s work</button>
         </div>
         }
         { // complete and approved
@@ -62,12 +70,12 @@ class SingleJob extends React.Component {
         { /* Child Button States */ }
         { // Not Assigned
           user && !user.isParent && singleJob.acceptedBy === 0 && <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn" onClick={() => { acceptJob(singleJob.id); }}>Accept Job</button>
+          <button className="btn ledger-btn-wide" onClick={() => { acceptJob(singleJob.id, user.id); }}>Accept Job</button>
         </div>
         }
         { // Assigned To Self
-          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn" onClick={() => { markJobComplete(singleJob.id); }}>Report job completed</button>
+          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && !singleJob.isComplete && <div className="w-100 d-flex justify-content-end">
+          <button className="btn ledger-btn-wide" onClick={() => { markJobComplete(singleJob.id); }}>Report job completed</button>
         </div>
         }
         { // Assigned to someone else incomplete
@@ -76,18 +84,18 @@ class SingleJob extends React.Component {
         </div>
         }
         { // Assigned to someone else complete
-          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy !== user.id && singleJob.isComplete && <div className="w-100 d-flex justify-content-end">
+          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy !== user.id && singleJob.approvedDate !== 0 && <div className="w-100 d-flex justify-content-end">
           <div className="badgeTight"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" />Completed by {acceptedByThumbnail.name}</div>
         </div>
         }
         { // Complete but not approved
-          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && singleJob.approvedDate === 0 && <div className="w-100 d-flex justify-content-end">
+          user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && singleJob.isComplete && singleJob.approvedDate === 0 && <div className="w-100 d-flex justify-content-end">
           <div className="badgeTight">Pending Approval</div>
         </div>
         }
         { // complete and approved
           user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && singleJob.approvedDate !== 0 && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight">Approved!</div>
+          <h6><i className="far fa-thumbs-up"></i> Approved!</h6>
         </div>
         }
       </div>

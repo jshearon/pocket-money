@@ -135,7 +135,7 @@ class AddJobForm extends React.Component {
             {
               user.isParent && jobData.id && jobData.acceptedBy !== 0
                 ? <button className="btn btn-primary m-1" onClick={this.editEntry}>Edit Job</button>
-                : <button className="btn btn-primary m-1" onClick={this.addNewJob}>Complete Job</button>
+                : <button className="btn btn-primary m-1" onClick={this.addNewJob}>Add Job</button>
             }
         <button className="btn btn-primary m-1" onClick={this.props.toggleAddJobForm}>Cancel</button>
       </div>

@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import AddJobForm from '../AddJobForm/AddJobForm';
 import SingleJob from '../SingleJob/SingleJob';
 import jobsData from '../../helpers/data/jobsData';
+import ledger from '../../helpers/data/ledger';
 
 class Jobs extends React.Component {
   state = {
@@ -40,9 +41,34 @@ class Jobs extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  approveJob = (jobId) => {
+  approveJob = (jobId, newDeposit) => {
     const editedJob = {
       approvedDate: new Date(),
+    };
+    jobsData.updateJob(jobId, editedJob)
+      .then(() => {
+        ledger.createLedger(newDeposit)
+          .then(() => {
+            this.updateJobs();
+          });
+      })
+      .catch((err) => console.error(err));
+  }
+
+  acceptJob = (jobId, childId) => {
+    const editedJob = {
+      acceptedBy: childId,
+    };
+    jobsData.updateJob(jobId, editedJob)
+      .then(() => {
+        this.updateJobs();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  markJobComplete = (jobId) => {
+    const editedJob = {
+      isComplete: true,
     };
     jobsData.updateJob(jobId, editedJob)
       .then(() => {
@@ -63,7 +89,16 @@ class Jobs extends React.Component {
   render() {
     const { user } = this.props;
     const { addJobForm, jobsList, jobData } = this.state;
-    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} editJob={this.editJob} deleteJob={this.deleteJob} approveJob={this.approveJob} user={user} />);
+    const printJobs = jobsList.map((singleJob) => <SingleJob
+        key={singleJob.id}
+        singleJob={singleJob}
+        editJob={this.editJob}
+        deleteJob={this.deleteJob}
+        approveJob={this.approveJob}
+        acceptJob={this.acceptJob}
+        markJobComplete={this.markJobComplete}
+        user={user}
+      />);
     return (
       <div className="Jobs content d-flex flex-column justify-content-start">
         <CSSTransition key={'addJobForm'} in={addJobForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>

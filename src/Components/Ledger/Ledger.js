@@ -94,7 +94,12 @@ class Child extends React.Component {
     } = this.state;
     const { childId } = this.props.match.params;
     const { user } = this.props;
-    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger key={ledgerItem.id} ledgerItem={ledgerItem} editLedgerItem={this.editLedgerItem} deleteLedgerItem={this.deleteLedgerItem} user={user} />);
+    const printLedger = childLedger.map((ledgerItem) => <DisplayLedger
+      key={ledgerItem.id}
+      ledgerItem={ledgerItem}
+      editLedgerItem={this.editLedgerItem}
+      deleteLedgerItem={this.deleteLedgerItem}
+      user={user} />);
     if (!isLoaded) {
       return <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>;
     }
