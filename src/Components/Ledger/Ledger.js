@@ -7,7 +7,7 @@ import users from '../../helpers/data/users';
 import AddLedgerForm from '../AddLedgerForm/AddLedgerForm';
 import utils from '../../helpers/utils';
 
-import './child.scss';
+import './Ledger.scss';
 import DisplayLedger from '../DisplayLedger/DisplayLedger';
 
 class Child extends React.Component {

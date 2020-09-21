@@ -11,7 +11,7 @@ import Wishlist from '../Wishlist/Wishlist';
 import Jobs from '../Jobs/Jobs';
 import Purchases from '../Purchases/Purchases';
 import Goals from '../Goals/Goals';
-import Child from '../Child/Child';
+import Ledger from '../Ledger/Ledger';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === false
@@ -44,7 +44,7 @@ class RoutesContainer extends React.Component {
     }
     return (
       <Switch>
-        <PrivateRoute path='/child/:childId' component={Child} authed={authed} guid={guid} user={user} />
+        <PrivateRoute path='/ledger/:childId' component={Ledger} authed={authed} guid={guid} user={user} />
         <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
         <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} user={user} />

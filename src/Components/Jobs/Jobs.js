@@ -8,6 +8,11 @@ class Jobs extends React.Component {
   state = {
     addJobForm: null,
     jobsList: [],
+    jobData: {},
+  }
+
+  clearJobData = () => {
+    this.setState({ ledger: {} });
   }
 
   toggleAddJobForm = (e) => {
@@ -35,8 +40,9 @@ class Jobs extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  editJob = () => {
-
+  editJob = (jobData) => {
+    this.setState({ jobData });
+    this.toggleAddJobForm();
   }
 
   componentDidMount() {
@@ -45,14 +51,16 @@ class Jobs extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { addJobForm, jobsList } = this.state;
-    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} deleteJob={this.deleteJob} user={user} />);
+    const { addJobForm, jobsList, jobData } = this.state;
+    const printJobs = jobsList.map((singleJob) => <SingleJob key={singleJob.id} singleJob={singleJob} editJob={this.editJob} deleteJob={this.deleteJob} user={user} />);
     return (
       <div className="Jobs content d-flex flex-column justify-content-start">
         <CSSTransition key={'addJobForm'} in={addJobForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
           <AddJobForm
             toggleAddJobForm={this.toggleAddJobForm}
             updateJobs={this.updateJobs}
+            jobData={jobData}
+            clearJobData={this.clearJobData}
             user={user}
           />
         </CSSTransition>

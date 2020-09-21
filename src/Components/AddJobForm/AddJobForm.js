@@ -61,12 +61,51 @@ class AddJobForm extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  editEntry = (e) => {
+    const {
+      updateJobs,
+      toggleAddJobForm,
+      clearJobData,
+    } = this.props;
+    const {
+      jobData,
+      payAmount,
+      description,
+      expireDate,
+    } = this.state;
+    const updatedJobEntry = {
+      createdBy: jobData.createdBy,
+      createdDate: jobData.createdDate,
+      description,
+      expireDate,
+      payAmount,
+      isComplete: jobData.isComplete,
+      completeDate: jobData.completeDate,
+      acceptedBy: jobData.acceptedBy,
+    };
+    jobsData.updateJob(jobData.id, updatedJobEntry)
+      .then(() => {
+        clearJobData();
+        this.setState({ amount: 0, description: null, isDebit: false });
+        updateJobs();
+        toggleAddJobForm();
+      })
+      .catch((err) => console.error(err));
+  }
+
   componentDidMount() {
+    const { jobData } = this.props;
+    jobData.id && this.setState({
+      jobData,
+      payAmount: jobData.payAmount,
+      description: jobData.description,
+      expireDate: new Date(jobData.expireDate),
+    });
   }
 
   render() {
     const {
-      amount,
+      payAmount,
       description,
       expireDate,
     } = this.state;
@@ -77,7 +116,7 @@ class AddJobForm extends React.Component {
         <div className="form-row align-items-center">
           <div className="form-group col">
             <label htmlFor="payAmount">Job Pays</label>
-            <input type="number" className="form-control w-75" id="payAmount" placeholder="0.00" onChange={this.updateState} value={amount}/>
+            <input type="number" className="form-control w-75" id="payAmount" placeholder="0.00" onChange={this.updateState} value={payAmount}/>
           </div>
           <div className="form-group col">
             <label htmlFor="expireDate">Job Expire Date</label>
