@@ -128,7 +128,6 @@ class Child extends React.Component {
         </div>
         {
           user.isParent && <button className="btn btn-primary m-3" onClick={this.toggleAddLedgerForm} id="newItem"><i className="fas fa-plus-circle"></i> New Entry</button>
-
         }
               <div className="child-ledger">
           {printLedger}

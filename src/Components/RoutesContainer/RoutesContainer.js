@@ -47,7 +47,7 @@ class RoutesContainer extends React.Component {
         <PrivateRoute path='/child/:childId' component={Child} authed={authed} guid={guid} user={user} />
         <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
-        <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} />
+        <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} user={user} />
         <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
         <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} user={user} getUser={getUser} />
         <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} getUser={getUser} />
