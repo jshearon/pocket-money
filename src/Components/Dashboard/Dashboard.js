@@ -95,8 +95,9 @@ class Dashboard extends React.Component {
         </div>
         )
         : (
-          <div className="child d-flex flex-column justify-content-start align-items-center h-100">
-            <div className="badgeLarge">Balance: $<CountUp start={0} end={balance * 1} decimals={2} duration={4} /></div>
+          <div className="child dashboard-balance d-flex flex-column justify-content-center align-items-center h-100">
+            <h3>You've Saved:</h3>
+            <h1>$<CountUp start={0} end={balance * 1} decimals={2} duration={4} /></h1>
           </div>
         )
     );

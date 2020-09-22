@@ -61,7 +61,7 @@ class WishList extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, balance } = this.props;
     const {
       addWishListForm,
       wishList,
@@ -74,6 +74,7 @@ class WishList extends React.Component {
         deleteWishList={this.deleteWishList}
         approveWishList={this.approveWishList}
         user={user}
+        balance={balance}
       />);
     return (
       <div className="WishList content d-flex flex-column justify-content-start">

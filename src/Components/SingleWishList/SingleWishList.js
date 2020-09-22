@@ -1,4 +1,6 @@
 import React from 'react';
+import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 // eslint-disable-next-line import/no-unresolved
 import './SingleWishList.scss';
 
@@ -9,14 +11,22 @@ class SingleWishList extends React.Component {
       editWishList,
       deleteWishList,
       approveWishList,
+      balance,
     } = this.props;
+    const percentage = balance / singleWishList.costAmount < 1
+      ? balance / singleWishList.costAmount
+      : 100;
     return (
       <div className="DisplayLedger m-4">
-        <div className="d-flex justify-content-between align-items-start">
-        <div className="w-100 ml-3">
-          <h4>{singleWishList.description}</h4>
-          <h6>${singleWishList.costAmount.toFixed(2)}</h6>
-        </div>
+        <div className="d-flex justify-content-between align-items-start mb-3">
+          <img className="wishlist-thumbnail" src={singleWishList.photoUrl} alt="product" />
+          <div className="w-100 ml-3">
+            <h6>{singleWishList.description}</h6>
+            <h6>${singleWishList.costAmount.toFixed(2)}</h6>
+          </div>
+            <CircularProgressbarWithChildren value={percentage} className="progressBar">
+              <span>{(percentage * 100).toFixed(0)}%</span>
+            </CircularProgressbarWithChildren>
         </div>
         <div className="w-100 d-flex justify-content-end">
           <button className="btn ledger-btn-wide" onClick={() => { editWishList(singleWishList); }}>Edit</button>
