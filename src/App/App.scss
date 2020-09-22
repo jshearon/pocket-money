@@ -1,6 +1,7 @@
 @import '../styles/variables';
 
 .App {
+  font-family: $medium;
   padding: 0;
   margin: 0;
   height: 100vh;
@@ -39,12 +40,12 @@
   padding: 0;
   display: grid;
   position: relative;
-  grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+  grid-template-columns: 25vw 25vw 25vw 25vw;
   grid-template-rows: 10vh auto 10vh;
   grid-template-areas: 
-    "blank blank blank name thumbnail"
-    "content content content content content"
-    "navbar1 navbar2 navbar3 navbar4 navbar5"
+    "blank blank name thumbnail"
+    "content content content content"
+    "navbar1 navbar2 navbar3 navbar4"
   ;
 }
 
@@ -88,12 +89,6 @@
 }
 .navbar4 {
   grid-area: navbar4;
-  justify-self: center;
-  align-self: center;
-  font-size: 8vw;
-}
-.navbar5 {
-  grid-area: navbar5;
   justify-self: center;
   align-self: center;
   font-size: 8vw;

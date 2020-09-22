@@ -11,6 +11,16 @@
   text-shadow: $value;
 }
 
+.dashboard-balance {
+  h3 {
+    color: $secondaryText;
+  }
+  h1 {
+    font-size: 4rem;
+    color: $primaryText;
+  }
+}
+
 .parent {
   h2 {
     font-family: $regular;
