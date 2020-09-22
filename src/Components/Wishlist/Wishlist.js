@@ -32,6 +32,17 @@ class WishList extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  approveWishList = (wishListId) => {
+    const updatedPart = {
+      requestApproval: 'pending',
+    };
+    wishListDataCrud.updateWishList(wishListId, updatedPart)
+      .then(() => {
+        this.updateWishList();
+      })
+      .catch((err) => console.error(err));
+  }
+
   deleteWishList = (wishListId) => {
     wishListDataCrud.deleteWishList(wishListId)
       .then(() => {
@@ -42,7 +53,7 @@ class WishList extends React.Component {
 
   editWishList = (editedWishList) => {
     this.setState({ wishListData: editedWishList });
-    this.toggleAddJobForm();
+    this.toggleAddWishListForm();
   }
 
   componentDidMount() {
@@ -59,8 +70,9 @@ class WishList extends React.Component {
     const printWishLists = wishList.map((singleWishList) => <SingleWishList
         key={singleWishList.id}
         singleWishList={singleWishList}
-        editWishList={this.editJob}
-        deleteWishList={this.deleteJob}
+        editWishList={this.editWishList}
+        deleteWishList={this.deleteWishList}
+        approveWishList={this.approveWishList}
         user={user}
       />);
     return (
@@ -68,12 +80,13 @@ class WishList extends React.Component {
         <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
           <AddWishListForm
             toggleAddWishListForm={this.toggleAddWishListForm}
-            updateJobs={this.updateJobs}
+            updateWishList={this.updateWishList}
             wishListData={wishListData}
             clearWishListData={this.clearWishListData}
             user={user}
           />
         </CSSTransition>
+        <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
         <div className="wishlists">
           {printWishLists}
         </div>

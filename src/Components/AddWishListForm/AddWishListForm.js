@@ -114,8 +114,8 @@ class AddWishListForm extends React.Component {
         </div>
             {
               wishListData.id && wishListData.isApproved !== 0
-                ? <button className="btn btn-primary m-1" onClick={this.editEntry}>Edit Job</button>
-                : <button className="btn btn-primary m-1" onClick={this.addNewWishList}>Add Job</button>
+                ? <button className="btn btn-primary m-1" onClick={this.editEntry}>Edit List Item</button>
+                : <button className="btn btn-primary m-1" onClick={this.addNewWishList}>Add List Item</button>
             }
         <button className="btn btn-primary m-1" onClick={this.props.toggleAddWishListForm}>Cancel</button>
       </div>
