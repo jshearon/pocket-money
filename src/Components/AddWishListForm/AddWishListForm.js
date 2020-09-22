@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/lib/ReactCrop.scss';
 
 import wishListDataCrud from '../../helpers/data/wishListData';
 
