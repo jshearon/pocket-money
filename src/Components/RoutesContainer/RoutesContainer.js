@@ -7,7 +7,7 @@ import {
 import Landing from '../Landing/Landing';
 import Onboarding from '../Onboarding/Onboarding';
 import Dashboard from '../Dashboard/Dashboard';
-import Wishlist from '../Wishlist/Wishlist';
+import WishList from '../Wishlist/Wishlist';
 import Jobs from '../Jobs/Jobs';
 import Purchases from '../Purchases/Purchases';
 import Goals from '../Goals/Goals';
@@ -36,6 +36,8 @@ class RoutesContainer extends React.Component {
       navbarOn,
       user,
       getUser,
+      balance,
+      getUserBalance,
     } = this.props;
     if (authed === null) {
       return (
@@ -44,12 +46,12 @@ class RoutesContainer extends React.Component {
     }
     return (
       <Switch>
-        <PrivateRoute path='/ledger/:childId' component={Ledger} authed={authed} guid={guid} user={user} />
+        <PrivateRoute path='/ledger/:childId' component={Ledger} authed={authed} guid={guid} user={user} balance={balance} getUserBalance={getUserBalance} />
         <PrivateRoute path='/goals' component={Goals} authed={authed} guid={guid} />
         <PrivateRoute path='/purchases' component={Purchases} authed={authed} guid={guid} />
         <PrivateRoute path='/jobs' component={Jobs} authed={authed} guid={guid} user={user} />
-        <PrivateRoute path='/wishlist' component={Wishlist} authed={authed} guid={guid} />
-        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} user={user} getUser={getUser} />
+        <PrivateRoute path='/wishlist' component={WishList} authed={authed} guid={guid} user={user} />
+        <PrivateRoute path='/dashboard' component={Dashboard} authed={authed} guid={guid} navbarOff={navbarOff} navbarOn={navbarOn} user={user} getUser={getUser} balance={balance} />
         <PrivateRoute path='/onboarding' component={Onboarding} authed={authed} getUser={getUser} />
         <PublicRoute path='/' component={Landing} authed={authed} />
         <Redirect from="*" to="/dashboard"/>

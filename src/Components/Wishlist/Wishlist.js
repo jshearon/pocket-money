@@ -1,20 +1,98 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
+import wishListDataCrud from '../../helpers/data/wishListData';
+import AddWishListForm from '../AddWishListForm/AddWishListForm';
+import SingleWishList from '../SingleWishList/SingleWishList';
 
-class Wishlist extends React.Component {
+class WishList extends React.Component {
   state = {
-    authed: null,
+    addWishListForm: false,
+    wishList: [],
+    wishListData: {},
+  }
+
+  clearWishListData = () => {
+    this.setState({ wishListData: {} });
+  }
+
+  toggleAddWishListForm = (e) => {
+    if (e && e.target.id === 'newWishList') {
+      this.setState({ wishListData: {} });
+    }
+    this.setState((prevState) => ({
+      addWishListForm: !prevState.addWishListForm,
+    }));
+  }
+
+  updateWishList = () => {
+    wishListDataCrud.getAllWishLists()
+      .then((wishList) => {
+        this.setState({ wishList });
+      })
+      .catch((err) => console.error(err));
+  }
+
+  approveWishList = (wishListId) => {
+    const updatedPart = {
+      requestApproval: 'pending',
+    };
+    wishListDataCrud.updateWishList(wishListId, updatedPart)
+      .then(() => {
+        this.updateWishList();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  deleteWishList = (wishListId) => {
+    wishListDataCrud.deleteWishList(wishListId)
+      .then(() => {
+        this.updateWishList();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  editWishList = (editedWishList) => {
+    this.setState({ wishListData: editedWishList });
+    this.toggleAddWishListForm();
   }
 
   componentDidMount() {
+    this.updateWishList();
   }
 
   render() {
+    const { user } = this.props;
+    const {
+      addWishListForm,
+      wishList,
+      wishListData,
+    } = this.state;
+    const printWishLists = wishList.map((singleWishList) => <SingleWishList
+        key={singleWishList.id}
+        singleWishList={singleWishList}
+        editWishList={this.editWishList}
+        deleteWishList={this.deleteWishList}
+        approveWishList={this.approveWishList}
+        user={user}
+      />);
     return (
-      <div className="Wishlist">
-        <h2>Wishlist</h2>
+      <div className="WishList content d-flex flex-column justify-content-start">
+        <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
+          <AddWishListForm
+            toggleAddWishListForm={this.toggleAddWishListForm}
+            updateWishList={this.updateWishList}
+            wishListData={wishListData}
+            clearWishListData={this.clearWishListData}
+            user={user}
+          />
+        </CSSTransition>
+        <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
+        <div className="wishlists">
+          {printWishLists}
+        </div>
       </div>
     );
   }
 }
 
-export default Wishlist;
+export default WishList;

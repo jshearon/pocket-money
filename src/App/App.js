@@ -15,6 +15,7 @@ import './App.scss';
 import Auth from '../Components/Auth/Auth';
 
 import '../Components/UserMenu/UserMenu';
+import ledger from '../helpers/data/ledger';
 
 fbConnection();
 
@@ -25,6 +26,7 @@ class App extends React.Component {
     userMenu: false,
     navbarShow: false,
     user: null,
+    balance: 0,
   }
 
   componentDidMount() {
@@ -45,11 +47,21 @@ class App extends React.Component {
     this.listener();
   }
 
+  getUserBalance = () => {
+    const { user } = this.state;
+    ledger.getLedgerByChildId(user.id)
+      .then((ledgerData) => {
+        const balance = utils.getBalance(ledgerData);
+        this.setState({ balance });
+      })
+      .catch((err) => console.error(err));
+  }
+
   getUser = (email) => {
     users.getUserByEmail(email)
       .then((user) => {
         if (user) {
-          this.setState({ user });
+          this.setState({ user }, this.getUserBalance);
         } else {
           this.setState({ user: {} });
         }
@@ -82,6 +94,7 @@ class App extends React.Component {
       userMenu,
       navbarShow,
       user,
+      balance,
     } = this.state;
     return (
       <div className="App">
@@ -94,7 +107,16 @@ class App extends React.Component {
                   <Auth authed={authed} openMenu={this.openMenu} />
                 </div>
             </CSSTransition>
-              <RoutesContainer authed={authed} guid={guid} navbarOff={this.navbarOff} navbarOn={this.navbarOn} getUser={this.getUser} user={user} />
+              <RoutesContainer
+                authed={authed}
+                guid={guid}
+                navbarOff={this.navbarOff}
+                navbarOn={this.navbarOn}
+                getUser={this.getUser}
+                user={user}
+                balance={balance}
+                getUserBalance={this.getUserBalance}
+              />
             {
               navbarShow
                 ? <Navbar user={user} />
