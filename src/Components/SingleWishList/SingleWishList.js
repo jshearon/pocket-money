@@ -13,9 +13,9 @@ class SingleWishList extends React.Component {
       approveWishList,
       balance,
     } = this.props;
-    const percentage = balance / singleWishList.costAmount < 1
-      ? balance / singleWishList.costAmount
-      : 100;
+    const percentage = (Math.round(balance > singleWishList.costAmount))
+      ? 100
+      : Math.round((balance / singleWishList.costAmount) * 100);
     return (
       <div className="DisplayLedger m-4">
         <div className="d-flex justify-content-between align-items-start mb-3">
@@ -25,7 +25,7 @@ class SingleWishList extends React.Component {
             <h6>${singleWishList.costAmount.toFixed(2)}</h6>
           </div>
             <CircularProgressbarWithChildren value={percentage} className="progressBar">
-              <span>{(percentage * 100).toFixed(0)}%</span>
+              <span>{percentage}%</span>
             </CircularProgressbarWithChildren>
         </div>
         <div className="w-100 d-flex justify-content-end">

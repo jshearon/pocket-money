@@ -1,50 +1,52 @@
 @import '../../styles/variables';
 
-.addWishListForm {
-  grid-area: content;
-  position: absolute; 
-  right: 5vw;
-  top: 11vh;
+.addWishList {
+  z-index: 100;
   width: 100vw;
-  height: 100%;
   color: $primaryText;
   background-color: whitesmoke;
 }
 
 .addWishListForm-enter, .addWishListForm-appear {
-  overflow-y: scroll;
-  grid-area: content;
-  position: absolute; 
+  z-index: 100;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
   height: 0;
   padding: 5vw;
-  opacity: 0;
   background-color: whitesmoke;
 }
 
 .addWishListForm-enter-active, .addWishListForm-enter-done, .addWishListForm-appear-active {
-  overflow-y: scroll;
-  grid-area: content;
-  position: absolute; 
+  z-index: 100;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
-  height: 400vw;
+  height: 90vh;
   padding: 5vw;
-  opacity: 1;
-  transition: all 500ms ease-out;
+  transition: height 500ms ease-out;
   background-color: whitesmoke;
 }
 
 .addWishListForm-exit, .addWishListForm-exit-active {
-  overflow-y: scroll;
-  grid-area: content;
-  position: absolute; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
-  height: 0;
+  height: 0vh;
   padding: 5vw;
-  opacity: 0;
-  transition: all 500ms ease-out;
+  transition: height 500ms ease-out;
   background-color: whitesmoke;
+}
+
+.ReactCrop__image {
+  height: 150px;
+  max-width: 200px;
+}
+
+.imgPreviewBox {
+  position: relative;
+}
+
+
+.previewImage {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

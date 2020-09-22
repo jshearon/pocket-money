@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import wishListDataCrud from '../../helpers/data/wishListData';
 import AddWishListForm from '../AddWishListForm/AddWishListForm';
 import SingleWishList from '../SingleWishList/SingleWishList';
+import './WishList.scss';
 
 class WishList extends React.Component {
   state = {
@@ -77,8 +78,14 @@ class WishList extends React.Component {
         balance={balance}
       />);
     return (
+      <React.Fragment>
       <div className="WishList content d-flex flex-column justify-content-start">
-        <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
+        <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
+        <div className="wishlists">
+          {printWishLists}
+        </div>
+        </div>
+        <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addWishListForm" unmountOnExit appear exit>
           <AddWishListForm
             toggleAddWishListForm={this.toggleAddWishListForm}
             updateWishList={this.updateWishList}
@@ -87,11 +94,7 @@ class WishList extends React.Component {
             user={user}
           />
         </CSSTransition>
-        <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
-        <div className="wishlists">
-          {printWishLists}
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

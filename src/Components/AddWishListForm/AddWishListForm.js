@@ -212,7 +212,7 @@ class AddWishListForm extends React.Component {
       src,
     } = this.state;
     return (
-      <div className="AddWishListForm content d-flex flex-column justify-content-around">
+      <div className="addWishlist content d-flex flex-column justify-content-around">
         <h2>Add New WishList Item</h2>
         <div>
         <div className="form-row align-items-center">
@@ -233,6 +233,7 @@ class AddWishListForm extends React.Component {
             <input type="file" className="form-control" id="image" accept="image/*" onChange={this.onSelectFile} />
           </div>
         </div>
+        <div className="imgPreviewBox">
         {src && (
           <ReactCrop
             src={src}
@@ -244,8 +245,9 @@ class AddWishListForm extends React.Component {
           />
         )}
         {croppedImageUrl && (
-          <img alt="Crop" style={{ maxWidth: '100%' }} src={URL.createObjectURL(croppedImageUrl)} />
+          <img className="previewImage" alt="Crop" style={{ height: '150px' }} src={URL.createObjectURL(croppedImageUrl)} />
         )}
+        </div>
         </div>
             {
               wishListData.id && wishListData.isApproved !== 0
