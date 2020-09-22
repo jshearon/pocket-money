@@ -22,12 +22,12 @@ class Child extends React.Component {
 
   getChildData() {
     const { childId } = this.props.match.params;
+    const { balance } = this.props;
     this.setState({ isLoaded: false });
     users.getUser(childId)
       .then((childData) => {
         ledger.getLedgerByChildId(childId)
           .then((ledgerData) => {
-            const balance = utils.getBalance(ledgerData);
             this.setState({
               childLedger: ledgerData,
               childData: childData.data,
@@ -43,10 +43,11 @@ class Child extends React.Component {
   }
 
   updateLedger = (childId) => {
+    const { getUserBalance } = this.props;
     ledger.getLedgerByChildId(childId)
       .then((ledgerData) => {
-        const balance = utils.getBalance(ledgerData);
-        this.setState({ childLedger: ledgerData, isLoaded: true, balance });
+        getUserBalance();
+        this.setState({ childLedger: ledgerData, isLoaded: true });
       })
       .catch((err) => {
         this.setState({ isLoading: false });
@@ -88,12 +89,11 @@ class Child extends React.Component {
       childData,
       isLoaded,
       addLedgerForm,
-      balance,
       childLedger,
       ledgerData,
     } = this.state;
     const { childId } = this.props.match.params;
-    const { user } = this.props;
+    const { user, balance } = this.props;
     const printLedger = childLedger.map((ledgerItem) => <DisplayLedger
       key={ledgerItem.id}
       ledgerItem={ledgerItem}

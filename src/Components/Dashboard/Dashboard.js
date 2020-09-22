@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import CountUp from 'react-countup';
 import users from '../../helpers/data/users';
 
 import './Dashboard.scss';
@@ -75,7 +76,7 @@ class Dashboard extends React.Component {
 
   buildDashboard = () => {
     const { addFamilyForm, family } = this.state;
-    const { user } = this.props;
+    const { user, balance } = this.props;
     return (
       user.isParent
         ? (
@@ -94,8 +95,8 @@ class Dashboard extends React.Component {
         </div>
         )
         : (
-          <div className="child">
-            <p>child stats go here</p>
+          <div className="child d-flex flex-column justify-content-start align-items-center h-100">
+            <div className="badgeLarge">Balance: $<CountUp start={0} end={balance * 1} decimals={2} duration={4} /></div>
           </div>
         )
     );
