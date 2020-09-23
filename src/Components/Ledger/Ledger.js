@@ -10,7 +10,7 @@ import utils from '../../helpers/utils';
 import './Ledger.scss';
 import DisplayLedger from '../DisplayLedger/DisplayLedger';
 
-class Child extends React.Component {
+class Ledger extends React.Component {
   state = {
     childData: {},
     balance: 0,
@@ -20,9 +20,19 @@ class Child extends React.Component {
     ledgerData: {},
   }
 
+  updateChildBalance = (childId) => {
+    ledger.getLedgerByChildId(childId)
+      .then((ledgerData) => {
+        const balance = utils.getBalance(ledgerData);
+        this.setState({ balance });
+      })
+      .catch((err) => console.error(err));
+  }
+
   getChildData() {
     const { childId } = this.props.match.params;
     const { balance } = this.props;
+    const { user } = this.props;
     this.setState({ isLoaded: false });
     users.getUser(childId)
       .then((childData) => {
@@ -32,7 +42,7 @@ class Child extends React.Component {
               childLedger: ledgerData,
               childData: childData.data,
               isLoaded: true,
-              balance,
+              balance: user && user.id === childId ? balance : this.updateChildBalance(childId),
             });
           });
       })
@@ -142,4 +152,4 @@ class Child extends React.Component {
   }
 }
 
-export default Child;
+export default Ledger;
