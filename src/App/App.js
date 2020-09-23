@@ -32,11 +32,16 @@ class App extends React.Component {
   componentDidMount() {
     this.listener = firebase.auth().onAuthStateChanged((guid) => {
       if (guid) {
-        this.setState({ authed: true, guid, navbarShow: true }, this.getUser(guid.email));
+        this.setState({ authed: true, guid, navbarShow: true });
       } else {
         this.setState({ authed: false, guid: {}, navbarShow: false });
       }
     });
+  }
+
+  componentDidUpdate() {
+    const { guid } = this.state;
+    this.getUser(guid.email);
   }
 
   componentWillUnmount() {
