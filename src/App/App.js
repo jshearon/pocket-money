@@ -33,15 +33,11 @@ class App extends React.Component {
     this.listener = firebase.auth().onAuthStateChanged((guid) => {
       if (guid) {
         this.setState({ authed: true, guid, navbarShow: true });
+        this.getUser(guid.email);
       } else {
         this.setState({ authed: false, guid: {}, navbarShow: false });
       }
     });
-  }
-
-  componentDidUpdate() {
-    const { guid } = this.state;
-    this.getUser(guid.email);
   }
 
   componentWillUnmount() {
@@ -97,11 +93,6 @@ class App extends React.Component {
       user,
       balance,
     } = this.state;
-    if (user === null) {
-      return (
-        <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>
-      );
-    }
     return (
       <div className="App">
         <BrowserRouter>
