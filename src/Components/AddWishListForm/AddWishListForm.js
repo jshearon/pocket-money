@@ -149,7 +149,7 @@ class AddWishListForm extends React.Component {
       description,
       photoUrl,
       costAmount,
-      isApproved: false,
+      isApproved: 0,
       approvedDate: 0,
       approvedBy: 0,
     };

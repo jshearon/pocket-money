@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import ledger from '../../helpers/data/ledger';
 import wishListDataCrud from '../../helpers/data/wishListData';
 import AddWishListForm from '../AddWishListForm/AddWishListForm';
 import SingleWishList from '../SingleWishList/SingleWishList';
@@ -33,9 +34,32 @@ class WishList extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  approveWishList = (wishListId) => {
+  approveWishList = (wishlistItem, status) => {
+    const { user } = this.props;
     const updatedPart = {
-      requestApproval: 'pending',
+      approvedBy: user.id,
+      approvedDate: Date.now(),
+      isApproved: status,
+    };
+    wishListDataCrud.updateWishList(wishlistItem.id, updatedPart)
+      .then(() => {
+        const newLedgerEntry = {
+          childId: wishlistItem.uid,
+          amount: wishlistItem.costAmount,
+          description: wishlistItem.description,
+          isDebit: true,
+          entryDate: new Date(),
+          depositedBy: this.props.user.id,
+        };
+        ledger.createLedger(newLedgerEntry);
+        this.updateWishList();
+      })
+      .catch((err) => console.error(err));
+  }
+
+  requestApproveWishList = (wishListId) => {
+    const updatedPart = {
+      isApproved: 'pending',
     };
     wishListDataCrud.updateWishList(wishListId, updatedPart)
       .then(() => {
@@ -73,6 +97,7 @@ class WishList extends React.Component {
         singleWishList={singleWishList}
         editWishList={this.editWishList}
         deleteWishList={this.deleteWishList}
+        requestApproveWishList={this.requestApproveWishList}
         approveWishList={this.approveWishList}
         user={user}
         balance={balance}
