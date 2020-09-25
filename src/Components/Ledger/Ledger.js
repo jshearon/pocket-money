@@ -1,6 +1,5 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import CountUp from 'react-countup';
 import ledger from '../../helpers/data/ledger';
 import users from '../../helpers/data/users';
 
@@ -10,19 +9,29 @@ import utils from '../../helpers/utils';
 import './Ledger.scss';
 import DisplayLedger from '../DisplayLedger/DisplayLedger';
 
-class Child extends React.Component {
+class Ledger extends React.Component {
   state = {
     childData: {},
-    balance: 0,
+    childBalance: 0,
     childLedger: [],
     isLoaded: false,
     addLedgerForm: false,
     ledgerData: {},
   }
 
+  updateChildBalance = (childId) => {
+    ledger.getLedgerByChildId(childId)
+      .then((ledgerData) => {
+        const childBalance = utils.getBalance(ledgerData);
+        this.setState({ childBalance });
+      })
+      .catch((err) => console.error(err));
+  }
+
   getChildData() {
     const { childId } = this.props.match.params;
     const { balance } = this.props;
+    this.updateChildBalance(childId);
     this.setState({ isLoaded: false });
     users.getUser(childId)
       .then((childData) => {
@@ -43,10 +52,10 @@ class Child extends React.Component {
   }
 
   updateLedger = (childId) => {
-    const { getUserBalance } = this.props;
+    const { getUserBalance, user } = this.props;
     ledger.getLedgerByChildId(childId)
       .then((ledgerData) => {
-        getUserBalance();
+        user && user.isParent ? this.updateChildBalance(childId) : getUserBalance();
         this.setState({ childLedger: ledgerData, isLoaded: true });
       })
       .catch((err) => {
@@ -60,9 +69,10 @@ class Child extends React.Component {
   }
 
   deleteLedgerItem = (itemId) => {
+    const { childId } = this.props.match.params;
     ledger.deleteLedger(itemId)
       .then(() => {
-        this.updateLedger(this.props.match.params.childId);
+        this.updateLedger(childId);
       })
       .catch((err) => console.error(err));
   }
@@ -87,6 +97,7 @@ class Child extends React.Component {
   render() {
     const {
       childData,
+      childBalance,
       isLoaded,
       addLedgerForm,
       childLedger,
@@ -100,7 +111,7 @@ class Child extends React.Component {
       editLedgerItem={this.editLedgerItem}
       deleteLedgerItem={this.deleteLedgerItem}
       user={user} />);
-    if (!isLoaded) {
+    if (!isLoaded || !user) {
       return <div className="loader fa-3x"><i className="fas fa-cog fa-spin"></i></div>;
     }
     return (
@@ -118,16 +129,16 @@ class Child extends React.Component {
         </CSSTransition>
         <div className="child-info d-flex flex-row justify-content-around align-items-center py-3 px-2 w-100">
           {
-            user.isParent && <img src={childData.photoURL} alt="child" className="ChildThumbnail child-parent-view-image"/>
+            user && user.isParent && <img src={childData.photoURL} alt="child" className="ChildThumbnail child-parent-view-image"/>
           }
           <div>
             {
-              user.isParent && <h2>{utils.firstName(childData.name)}</h2>
+              user && user.isParent && <h2>{utils.firstName(childData.name)}</h2>
             }
             {
-              user.isParent
-                ? <span className="badge">Balance: ${balance}</span>
-                : <div className="badgeLarge">Balance: $<CountUp start={0} end={balance * 1} decimals={2} duration={4} /></div>
+              user && user.isParent
+                ? <span className="badge">Balance: ${childBalance}</span>
+                : <div className="badge">Balance: ${balance}</div>
             }
           </div>
         </div>
@@ -142,4 +153,4 @@ class Child extends React.Component {
   }
 }
 
-export default Child;
+export default Ledger;

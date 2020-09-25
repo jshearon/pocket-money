@@ -10,8 +10,10 @@ class SingleWishList extends React.Component {
       singleWishList,
       editWishList,
       deleteWishList,
+      requestApproveWishList,
       approveWishList,
       balance,
+      user,
     } = this.props;
     const percentage = (Math.round(balance > singleWishList.costAmount))
       ? 100
@@ -29,12 +31,51 @@ class SingleWishList extends React.Component {
             </CircularProgressbarWithChildren>
         </div>
         <div className="w-100 d-flex justify-content-end">
-          <button className="btn ledger-btn-wide" onClick={() => { editWishList(singleWishList); }}>Edit</button>
-          <button className="btn ledger-btn-wide ml-2" onClick={() => { deleteWishList(singleWishList.id); }}>Delete</button>
           {
-            singleWishList.requestApproval === 'pending'
-              ? <span className="badge ml-2">Pending</span>
-              : <button className="btn ledger-btn-wide ml-2" onClick={() => { approveWishList(singleWishList.id); }}>Ask To Buy</button>
+            user && !user.isParent && singleWishList.isApproved === 0
+              && <React.Fragment>
+                  <button className="btn ledger-btn-wide" onClick={() => { editWishList(singleWishList); }}>Edit</button>
+                  <button className="btn ledger-btn-wide ml-2" onClick={() => { deleteWishList(singleWishList.id); }}>Delete</button>
+                </React.Fragment>
+          }
+          {
+            user && !user.isParent && singleWishList.isApproved === 0 && balance >= singleWishList.costAmount
+              && <button className="btn ledger-btn-wide ml-2" onClick={() => { requestApproveWishList(singleWishList.id); }}>
+                  Ask To Buy
+                 </button>
+          }
+          {
+            user && !user.isParent && singleWishList.isApproved === 'pending'
+              && <span className="badge ml-2">Pending</span>
+          }
+          {
+            user && !user.isParent && singleWishList.isApproved === 'approved'
+              && <span className="badge ml-2">Approved</span>
+          }
+          {
+            user && !user.isParent && singleWishList.isApproved === 'declined'
+              && <React.Fragment>
+                <span className="badge ml-2">Declined</span>
+              </React.Fragment>
+          }
+          {
+            user && user.isParent && singleWishList.isApproved === 'pending'
+            && <React.Fragment>
+            <button className="btn ledger-btn-wide" onClick={() => { approveWishList(singleWishList, 'approved'); }}>Approve</button>
+            <button className="btn ledger-btn-wide ml-2" onClick={() => { approveWishList(singleWishList.id, 'declined'); }}>Decline</button>
+            </React.Fragment>
+          }
+          {
+            user && user.isParent && singleWishList.isApproved === 'approved'
+            && <React.Fragment>
+              <span className="badge ml-2">Approved</span>
+            </React.Fragment>
+          }
+          {
+            user && user.isParent && singleWishList.isApproved === 'declined'
+            && <React.Fragment>
+              <span className="badge ml-2">Declined</span>
+            </React.Fragment>
           }
         </div>
       </div>

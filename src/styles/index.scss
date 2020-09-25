@@ -1,3 +1,44 @@
 @import 'variables';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+.userSettings-enter, .userSettings-appear {
+  grid-area: content; 
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
+  top: 0;
+  right: 0;
+  width: 0vw;
+  height: 80vh;
+  color: darkgray;
+  background-color: white;
+}
+
+.userSettings-enter-active, .userSettings-appear-active, .userSettings-enter-done {
+  grid-area: content;
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
+  top: 0;
+  right: 0;
+  width: 60vw;
+  height: 80vh;
+  color: darkgray;
+  background-color: white;
+  transition: all 300ms;
+}
+
+.userSettings-exit, .userSettings-exit-active {
+  grid-area: content; 
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
+  top: 0;
+  right: 0;
+  width: 0vw;
+  height: 80vh;
+  color: darkgray;
+  background-color: white;
+  transition: all 300ms;
+}

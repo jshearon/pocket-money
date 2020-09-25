@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-.addWishList {
+.addWishlist {
   z-index: 100;
   width: 100vw;
   color: $primaryText;
@@ -8,6 +8,8 @@
 }
 
 .addWishListForm-enter, .addWishListForm-appear {
+  grid-area: content;
+  position: absolute; 
   z-index: 100;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
@@ -17,21 +19,25 @@
 }
 
 .addWishListForm-enter-active, .addWishListForm-enter-done, .addWishListForm-appear-active {
+  grid-area: content;
+  position: absolute; 
   z-index: 100;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
   height: 90vh;
   padding: 5vw;
-  transition: height 500ms ease-out;
+  transition: all 1s ease-out;
   background-color: whitesmoke;
 }
 
 .addWishListForm-exit, .addWishListForm-exit-active {
+  grid-area: content;
+  position: absolute; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), inset 1px 4px 9px -6px;
   width: 100vw;
   height: 0vh;
   padding: 5vw;
-  transition: height 500ms ease-out;
+  transition:all 1s ease-out;
   background-color: whitesmoke;
 }
 
