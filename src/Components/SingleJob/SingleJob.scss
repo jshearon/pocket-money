@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.accepted-badge {
+  font-size: .8rem !important;
+  padding: .2rem 1rem .2rem .2rem !important;
+  background-color: $accentColor1;
+  border-radius: 1000px;
+  color: whitesmoke;
+  img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    border: 1px solid $accentColor2;
+  }
+}

@@ -110,7 +110,7 @@ class WishList extends React.Component {
           {printWishLists}
         </div>
         </div>
-        <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addWishListForm" unmountOnExit appear exit>
+        <CSSTransition key={'addWishListForm'} in={addWishListForm} timeout={500} classNames="addFamilyForm" unmountOnExit appear exit>
           <AddWishListForm
             toggleAddWishListForm={this.toggleAddWishListForm}
             updateWishList={this.updateWishList}

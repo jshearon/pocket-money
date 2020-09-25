@@ -3,7 +3,7 @@ import 'firebase/auth';
 
 const getuid = () => firebase.auth().currentUser;
 
-const firstName = (name) => name.split(' ')[0];
+const firstName = (name) => name && name.split(' ')[0];
 
 const getBalance = (items) => {
   let balance = 0;

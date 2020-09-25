@@ -80,17 +80,17 @@ class SingleJob extends React.Component {
         }
         { // Assigned to someone else incomplete
           user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy !== user.id && !singleJob.isComplete && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" />In Progress</div>
+          <div className="accepted-badge"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" />In Progress</div>
         </div>
         }
         { // Assigned to someone else complete
           user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy !== user.id && singleJob.approvedDate !== 0 && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" />Completed by {acceptedByThumbnail.name}</div>
+          <div className="accepted-badge"><img src={acceptedByThumbnail.photoURL} alt="User" className="mr-4" />Completed by {acceptedByThumbnail.name}</div>
         </div>
         }
         { // Complete but not approved
           user && !user.isParent && singleJob.acceptedBy !== 0 && singleJob.acceptedBy === user.id && singleJob.isComplete && singleJob.approvedDate === 0 && <div className="w-100 d-flex justify-content-end">
-          <div className="badgeTight">Pending Approval</div>
+          <div className="badge">Pending Approval</div>
         </div>
         }
         { // complete and approved
