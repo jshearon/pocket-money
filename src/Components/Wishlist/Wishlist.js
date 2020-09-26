@@ -4,6 +4,7 @@ import ledger from '../../helpers/data/ledger';
 import wishListDataCrud from '../../helpers/data/wishListData';
 import AddWishListForm from '../AddWishListForm/AddWishListForm';
 import SingleWishList from '../SingleWishList/SingleWishList';
+import userData from '../../helpers/data/users';
 import './WishList.scss';
 
 class WishList extends React.Component {
@@ -29,7 +30,16 @@ class WishList extends React.Component {
   updateWishList = () => {
     wishListDataCrud.getAllWishLists()
       .then((wishList) => {
-        this.setState({ wishList });
+        userData.getUser(this.props.match.params.uid)
+          .then((user) => {
+            if (user.data.isParent) {
+              const parentList = wishList.filter((item) => item.isApproved !== 0);
+              this.setState({ wishList: parentList });
+            } else {
+              const childList = wishList.filter((item) => item.uid === this.props.match.params.uid);
+              this.setState({ wishList: childList });
+            }
+          });
       })
       .catch((err) => console.error(err));
   }
@@ -101,11 +111,14 @@ class WishList extends React.Component {
         approveWishList={this.approveWishList}
         user={user}
         balance={balance}
-      />);
+        />);
     return (
       <React.Fragment>
       <div className="WishList content d-flex flex-column justify-content-start">
-        <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
+        {
+          user && !user.isParent
+            && <button className="btn btn-primary m-3" onClick={this.toggleAddWishListForm} id="newItem"><i className="fas fa-plus-circle"></i> Add New List Item</button>
+        }
         <div className="wishlists">
           {printWishLists}
         </div>

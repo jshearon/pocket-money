@@ -7,7 +7,7 @@ import apiKeys from '../apiKey.json';
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getWishListByUid = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/wishlist.json?orderBy="uid"&equalTo="${uid}"`)
+  axios.get(`${baseUrl}/wishlists.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
       const allWishLists = response.data;
       const myWishList = [];
