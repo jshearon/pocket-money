@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pocket Piggy
 
-## Available Scripts
+Pocket Piggy is a friendly and easy to use mobile app designed for parents and kids to collaborate on money management. Gift cards from grandma, allowance, money earned from chores - it can all be easily tracked and managed by Pocket Piggy. 
 
-In the project directory, you can run:
+Parents can 
+  * create family groups
+  * add child accounts
+  * deposit funds to child accounts
+  * approve purchase requests by children
+  * create and approve chores
+  * view a ledger of past purchases
 
-### `npm start`
+Children can
+  * Create wishlists with an image uploader for things they want to buy and see savings progress for each item
+  * Get approval from a parent to buy something once they've saved enough
+  * Accept chore assignments and earn money for the things they want
+  * View a ledger of their account balance, all their past purchases, and money earned. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Preview
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Pockey Piggy](pocket-piggy-ss.gif)
 
-### `npm test`
+## Deployed Project
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://pp-demo-frame.web.app/
 
-### `npm run build`
+## Clone the Repository
+- Clone it 👉🏼 `$ git clone https://github.com/jshearon/pocket-piggy`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Install the dependencies 👉🏼 `$ npm install`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Run `$ npm start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Pocket Piggy uses Google's Firebase Database for data storage, so you'll need to set one of those up too, and use the  !base.json file in the /db folder to create the database schema. 
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Technologies Used
+[![JavaScript](https://img.shields.io/badge/-JavaScript-2c9fcc?style=flat-square)](#) [![SASS](https://img.shields.io/badge/-SASS-2c9fcc?style=flat-square)](#) [![React](https://img.shields.io/badge/-React-2c9fcc?style=flat-square)](#) [![HTML5](https://img.shields.io/badge/-HTML5-2c9fcc?style=flat-square)](#) [![Firebase](https://img.shields.io/badge/-Firebase-2c9fcc?style=flat-square)](#) [![Axios](https://img.shields.io/badge/-Axios-2c9fcc?style=flat-square)](#)
